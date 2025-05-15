@@ -1,0 +1,69 @@
+.wrapper {
+}
+
+.roomContianer {
+  width: 17rem;
+  height: 59px;
+  flex-shrink: 0;
+
+  border-radius: 20px;
+  border: 1px solid #e78f57;
+  background: #fafafa;
+}
+.top {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top > h1 {
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.top > h2 {
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.filter {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.filter > h1 {
+  width: 4.2rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+
+  border-radius: 20px;
+  background: #badafe;
+
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter > h2 {
+  width: 3rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+
+  border-radius: 20px;
+  background: #febae4;
+
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

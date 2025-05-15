@@ -8,6 +8,7 @@ import MyRoomHistory from '../pages/my/MyRoomHistory';
 import Room from '../pages/room/Room';
 import SignUp from '../pages/login/Signup';
 import NotFound from '../pages/notFound';
+import AddRoom from '../components/Main/AddRoom';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
     ],
   },
 
+  {
+    // 방 생성 페이지
+    path: '/addroom',
+    element: <AddRoom />,
+  },
   {
     // 마이페이지
     path: '/my',

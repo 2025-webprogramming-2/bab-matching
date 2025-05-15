@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './Main.module.css';
+
 import CurrentRoom from '../../components/Main/CurrentRoom';
+import RoomList from '../../components/Main/RoomList';
+import AddRoom from '../../components/Main/AddRoom';
+
+import styles from './Main.module.css';
 
 function Main() {
   const [stores, setStores] = useState([]);
@@ -22,26 +26,14 @@ function Main() {
   }, []);
 
   return (
-    <div>
-      <h1>가게 목록</h1>
-      <ul>
-        {stores.map((store) => (
-          <li key={store._id}>
-            <h2>{store.name}</h2>
-            <img src={store.img} alt={store.name} width="200" />
-            {store.info.map((item, idx) => (
-              <div key={idx}>
-                <strong>{item.major}</strong>
-                <ul>
-                  {item.benefits.map((b, i) => (
-                    <li key={i}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </li>
-        ))}
-      </ul>
+    <div className={styles.wrapper}>
+      <div className={styles.bodyContainer}>
+        <div className={styles.leftContainer}>
+          <AddRoom />
+          <CurrentRoom />
+        </div>
+        <RoomList />
+      </div>
     </div>
   );
 }
