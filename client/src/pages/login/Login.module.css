@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #fefaf3;
+  height: 100vh;
+}
+
+.logoText {
+  font-size: 28px;
+  font-weight: bold;
+  color: #6d3f26;
+  margin-bottom: 40px;
+}
+
+.input {
+  width: 80%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 12px;
+  background-color: #fffaf3;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.loginBtn {
+  width: 80%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #f0935c;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+}
+
+.signupBtn {
+  width: 80%;
+  padding: 15px;
+  margin-top: 12px;
+  background-color: #fcd9a8;
+  color: #6d3f26;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+}
+
+.findAccount {
+  margin-top: 20px;
+  color: #6d3f26;
+  font-size: 14px;
+}
