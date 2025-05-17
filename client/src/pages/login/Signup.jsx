@@ -20,10 +20,10 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:8800/user/signup', form);
+      const response = await axios.post('http://localhost:4000/api/user/signup', form);
       const userId = response.data.userId;
       alert('회원가입 성공!');
-      navigate(`/home?userId=${userId}`);
+      navigate(`/`);
     } catch (error) {
       alert('회원가입 실패: ' + (error.response?.data?.message || error.message));
     }
