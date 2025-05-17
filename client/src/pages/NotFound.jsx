@@ -3,7 +3,7 @@ import axios from 'axios';
 import styles from './NotFound.module.css';
 
 function NotFound() {
-  onst[(stores, setStores)] = useState([]);
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     const fetchStores = async () => {
