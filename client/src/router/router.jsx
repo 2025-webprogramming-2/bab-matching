@@ -5,6 +5,7 @@ import StoreMain from '../pages/store/StoreMain';
 import StoreMajor from '../pages/store/StoreMajor';
 import My from '../pages/my/My';
 import MyRoomHistory from '../pages/my/MyRoomHistory';
+import MyEdit from '../pages/my/MyEdit';
 import Room from '../pages/room/Room';
 import SignUp from '../pages/login/Signup';
 import NotFound from '../pages/notFound';
@@ -57,6 +58,12 @@ const router = createBrowserRouter([
         element: <MyRoomHistory />,
       },
     ],
+  },
+
+  {
+    //내 정보수정 페이지
+    path: '/my/edit',
+    element: <MyEdit />,
   },
 
   {
