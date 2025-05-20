@@ -1,59 +1,54 @@
-import React, { useState, useEffect } from 'react';
+// My.jsx
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 
 function My() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const userId = params.get('userId');
+  const navigate = useNavigate();
+  const userId = new URLSearchParams(useLocation().search).get('userId');
 
-  const [form, setForm] = useState({
-    userLoginId: '',
-    username: '',
-    gender: '',
-    major: '',
-    studentNumber: '',
-  });
+  const [user, setUser] = useState(null);
 
-  // 사용자 정보 불러오기
+  // 유저 정보 불러오기
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/user/${userId}`);
-        setForm(res.data);
+        setUser(res.data);
       } catch (err) {
-        alert('유저 정보를 불러오지 못했습니다.');
+        alert('유저 정보를 불러올 수 없습니다.');
       }
     };
+
     if (userId) fetchUser();
   }, [userId]);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = async () => {
-    try {
-      await axios.put(`http://localhost:4000/api/user/${userId}`, form);
-      alert('정보가 수정되었습니다!');
-    } catch (err) {
-      alert('수정 실패: ' + (err.response?.data?.message || err.message));
-    }
+  const goToEdit = () => {
+    navigate(`/my/edit?userId=${userId}`);
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>내 정보</h2>
-      <input name="userLoginId" value={form.userLoginId} onChange={handleChange} placeholder="아이디" disabled />
-      <input name="username" value={form.username} onChange={handleChange} placeholder="이름" />
-      <select name="gender" value={form.gender} onChange={handleChange}>
-        <option value="">성별 선택</option>
-        <option value="남">남</option>
-        <option value="여">여</option>
-      </select>
-      <input name="major" value={form.major} onChange={handleChange} placeholder="전공" />
-      <input name="studentNumber" value={form.studentNumber} onChange={handleChange} placeholder="학번" />
-      <button onClick={handleSave}>수정하기</button>
+    <div>
+      <h2>마이페이지</h2>
+      <div style={{ border: '1px solid orange', padding: '20px', borderRadius: '12px' }}>
+        <strong>유저 정보</strong>
+        <div style={{ marginTop: '10px' }}>
+          {user ? (
+            <>
+              <div>이름: {user.username}</div>
+              <div>아이디: {user.userLoginId}</div>
+              <div>학번: {user.studentNumber}</div>
+              <div>성별: {user.gender}</div>
+              <div>전공: {user.major}</div>
+            </>
+          ) : (
+            <p>로딩 중...</p>
+          )}
+        </div>
+      </div>
+      <div onClick={goToEdit} style={{ textAlign: 'right', marginTop: '10px', cursor: 'pointer' }}>
+        정보 수정하기 &gt;
+      </div>
     </div>
   );
 }
