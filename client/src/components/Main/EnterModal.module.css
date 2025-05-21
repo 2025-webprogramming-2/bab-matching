@@ -1,0 +1,123 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.modalContainer {
+  width: 282px;
+  min-height: 20rem;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #fdf9f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.body {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.body > h1 {
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.body > h2 {
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.currentWrapper {
+  width: 15rem;
+  height: 3.5rem;
+
+  border-radius: 20px;
+  border: 1px solid #e78f57;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefitsContainer {
+  display: flex;
+  gap: 2rem;
+  align-items: start;
+}
+
+.benefitsContainer > h3 {
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.majorContanier {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.majorName {
+  min-width: 35px;
+  height: 12px;
+  border-radius: 10px;
+  background: #badafe;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+.btnContainer {
+  display: flex;
+  gap: 2rem;
+  position: absolute;
+  bottom: 3rem;
+}
+.exBtn,
+.entBtn {
+  border-radius: 20px;
+  text-align: center;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  padding: 0.5rem;
+  width: 65px;
+  height: 25px;
+  border: 1px solid #e78f57;
+  cursor: pointer;
+}
+
+.exBtn {
+  background: #fff;
+  color: #717171;
+}
+
+.entBtn {
+  background: #e78f57;
+  color: #fffcfc;
+}

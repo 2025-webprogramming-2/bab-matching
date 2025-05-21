@@ -6,6 +6,7 @@ import RoomList from '../../components/Main/RoomList';
 import AddRoom from '../../components/Main/AddRoom';
 
 import styles from './Main.module.css';
+import EnterModal from '../../components/Main/EnterModal';
 
 function Main() {
   const [stores, setStores] = useState([]);
@@ -26,15 +27,18 @@ function Main() {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.bodyContainer}>
-        <div className={styles.leftContainer}>
-          <AddRoom />
-          <CurrentRoom />
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.bodyContainer}>
+          <div className={styles.leftContainer}>
+            <AddRoom />
+            <CurrentRoom />
+          </div>
+          <RoomList />
         </div>
-        <RoomList />
       </div>
-    </div>
+      {/* <EnterModal /> */}
+    </>
   );
 }
 

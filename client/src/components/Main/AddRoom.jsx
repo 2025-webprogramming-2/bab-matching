@@ -6,7 +6,9 @@ function AddRoom() {
   return (
     <>
       <div className={styles.wrapper}>
-        <div>AddRoom</div>
+        <div>
+          <img className={styles.plusIcon} src="/assets/plus.png" alt="플러스아이콘" />
+        </div>
       </div>
     </>
   );
