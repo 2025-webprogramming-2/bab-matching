@@ -19,12 +19,26 @@ function My() {
         setUser(res.data);
       } catch (err) {
         alert('유저 정보를 불러올 수 없습니다.');
-        //navigate('/login');
       }
     };
 
     fetchUser();
   }, []);
+
+  const LogOut = async () => {
+    try {
+      await axios.post(
+        'http://localhost:4000/api/user/logout',
+        {},
+        {
+          withCredentials: true
+        }
+      );
+      navigate('/');
+    } catch (err) {
+      alert('로그아웃 실패' +(err.response?.data?.message || err.message));
+    }
+  };
 
   const goToEdit = () => {
     navigate(`/my/edit?userId=${userId}`);
@@ -52,6 +66,13 @@ function My() {
       <div onClick={goToEdit} style={{ textAlign: 'right', marginTop: '10px', cursor: 'pointer' }}>
         정보 수정하기 &gt;
       </div>
+      <div>
+      <div> 
+      <button onClick={LogOut}>
+        로그아웃
+      </button>
+      </div>
+    </div>
     </div>
   );
 }

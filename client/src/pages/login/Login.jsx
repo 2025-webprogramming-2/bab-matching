@@ -28,7 +28,7 @@ function Login() {
       );
 
       alert('로그인 성공!');
-      navigate('/my'); // 쿼리 없이 이동
+      navigate('/main');
     } catch (err) {
       alert('로그인 실패: ' + (err.response?.data?.message || err.message));
     }

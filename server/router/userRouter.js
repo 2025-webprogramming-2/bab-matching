@@ -65,7 +65,7 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
-// GET /api/user/me
+// 사용자 정보(세션에 저장되어 있는 정보)
 userRouter.get('/me', (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ message: '로그인이 필요합니다.' });
