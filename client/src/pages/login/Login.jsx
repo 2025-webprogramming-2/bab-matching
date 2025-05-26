@@ -1,24 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // useState: 입력창에 입력한 값을 기억하기 위해 사용되는 "상태저장도구"
 import axios from 'axios';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom'
 
-function Login() {
-  const navigate = useNavigate();
 
-  const [userLoginId, setUserLoginId] = useState('');
+function Login() {
+  const navigate = useNavigate(); // 페이지 이동 도구
+
+  //입력창에서 유저가 입력한 ID와 PW를 저장
+  //userLoginId: 아이디 입력값을 저장
+  //setUserLoginId: 아이디 값을 변경하는 함수
+  const [userLoginId, setUserLoginId] = useState(''); 
   const [userLoginPw, setUserLoginPw] = useState('');
 
+  //로그인 요청 함수 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:4000/api/user/login', {
-        userLoginId,
-        userLoginPw,
-      });
+      await axios.post(
+        'http://localhost:4000/api/user/login',
+        {
+          userLoginId,
+          userLoginPw,
+        },
+        {
+          withCredentials: true, // 세션 쿠키 포함
+        }
+      );
 
-      const userId = res.data.userId;
       alert('로그인 성공!');
-      navigate(`/main?userId=${userId}`);
+      navigate('/my'); // 쿼리 없이 이동
     } catch (err) {
       alert('로그인 실패: ' + (err.response?.data?.message || err.message));
     }

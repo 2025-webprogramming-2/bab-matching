@@ -33,7 +33,7 @@ userRouter.post('/signup', async (req, res) => {
 });
 
 
-// 로그인 API 추가
+// 로그인 API 
 userRouter.post('/login', async (req, res) => {
   try {
     const { userLoginId, userLoginPw } = req.body; //프론트에서 보낸 아이디와 비번
@@ -43,15 +43,37 @@ userRouter.post('/login', async (req, res) => {
       return res.status(401).json({ message: '아이디 또는 비밀번호가 틀렸습니다.' });
     }
 
+    //세션에 로그인 정보 저장
+    req.session.user = {
+      userId: user._id,
+      userLoginId: user.userLoginId,
+      username: user.username,
+      gender: user.gender,
+      major: user.major,
+      studentNumber: user.studentNumber
+    }
+    console.log('로그인 성공 - 세션에 저장된 사용자:', req.session.user);
+    console.log('전체 세션 상태:', req.session);
+
     res.status(200).json({
       message: '로그인 성공',
-      userId: user._id, //쿼리로 넘겨줌
+      //userId: user._id, //쿼리로 넘겨줌
     });
   } catch (error) {
     console.error('로그인 오류:', error);
     res.status(500).json({ message: '서버 오류' });
   }
 });
+
+// GET /api/user/me
+userRouter.get('/me', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: '로그인이 필요합니다.' });
+  }
+
+  res.status(200).json(req.session.user);
+});
+
 
 //사용자 정보 가져오기(조회용)
 userRouter.get('/:id', async (req, res) => {
@@ -65,6 +87,8 @@ userRouter.get('/:id', async (req, res) => {
   }
 });
 
+
+
 //사용자 정보 수정하기(업데이트용)
 userRouter.put('/:id', async (req, res) => {
   try {
@@ -77,5 +101,17 @@ userRouter.put('/:id', async (req, res) => {
   }
 });
 
+//로그아웃 API
+userRouter.post('/logout', (req, res) =>{
+  req.session.destroy((err) => {
+    if(err) {
+      console.error('로그아웃 실패:', err);
+      return res.status(500).json({message: '로그아웃 중 오류가 발생했습니다.'});
+    }
+    // 세션 쿠키 삭제
+    res.clearCookie('connect.sid');
+    res.status(200).json({ message: '로그아웃 성공'});
+  });
+});
 
 export default userRouter;

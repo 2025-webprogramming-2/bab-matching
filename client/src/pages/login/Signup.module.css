@@ -20,7 +20,7 @@
   margin: 8px 0;
   border: none;
   border-radius: 12px;
-  background-color: #fffaf3;
+  background-color: #ffefd4;
   font-size: 16px;
 }
 
@@ -34,4 +34,9 @@
   border: none;
   border-radius: 30px;
   font-size: 18px;
+}
+
+.signupBtn:hover {
+  background-color: #f07a35;
+  cursor: pointer;
 }

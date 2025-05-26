@@ -13,15 +13,18 @@ function My() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/user/${userId}`);
+        const res = await axios.get(`http://localhost:4000/api/user/me`, {
+          withCredentials: true, //세션 쿠키 전송
+        });
         setUser(res.data);
       } catch (err) {
         alert('유저 정보를 불러올 수 없습니다.');
+        //navigate('/login');
       }
     };
 
-    if (userId) fetchUser();
-  }, [userId]);
+    fetchUser();
+  }, []);
 
   const goToEdit = () => {
     navigate(`/my/edit?userId=${userId}`);

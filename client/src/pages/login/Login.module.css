@@ -54,3 +54,14 @@
   color: #6d3f26;
   font-size: 14px;
 }
+
+/* hover */
+.loginBtn:hover {
+  background-color: #f07a35;
+  cursor: pointer;
+}
+
+.signupBtn:hover {
+  background-color: #fdc980;
+  cursor: pointer;
+}
