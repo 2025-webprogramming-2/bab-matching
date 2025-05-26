@@ -58,14 +58,14 @@ function Login() {
       {/* 입력값 상태 연결 */}
       <input
         type="text"
-        placeholder="id: "
+        placeholder="id "
         className={styles.input}
         value={userLoginId}
         onChange={(e) => setUserLoginId(e.target.value)}
       />
       <input
         type="password"
-        placeholder="password: "
+        placeholder="password "
         className={styles.input}
         value={userLoginPw}
         onChange={(e) => setUserLoginPw(e.target.value)}
