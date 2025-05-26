@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // useState: 입력창에 입력한 값을 기억하기 위해 사용되는 "상태저장도구"
+import React, { useState, useEffect } from 'react'; // useState: 입력창에 입력한 값을 기억하기 위해 사용되는 "상태저장도구"
 import axios from 'axios';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +13,19 @@ function Login() {
   const [userLoginId, setUserLoginId] = useState(''); 
   const [userLoginPw, setUserLoginPw] = useState('');
 
+  //이미 로그인된 상태인지 확인 
+  useEffect(() => {
+    const checkSession = async () => {
+      try{
+        await axios.get('http://localhost:4000/api/user/me', {
+          withCredentials: true,
+        });
+        navigate('/main');
+      } catch (err) {}
+    };
+    checkSession();     
+  }, [navigate]);
+  
   //로그인 요청 함수 
   const handleLogin = async () => {
     try {
