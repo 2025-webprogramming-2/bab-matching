@@ -33,14 +33,14 @@ const router = createBrowserRouter([
     // 식당 메인 페이지 - 단과대 목록
     path: '/store',
     element: <StoreMain />,
-    children: [
-      {
-        // 단과대별 제휴 식당 목록 페이지
-        index: true,
-        element: <StoreMajor />,
-      },
-    ],
   },
+  {
+  path: '/store/:collegeId',
+  element: <StoreMajor />,
+  },
+
+
+
 
   {
     // 방 생성 페이지
