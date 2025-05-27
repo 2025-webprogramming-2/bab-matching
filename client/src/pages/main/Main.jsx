@@ -9,23 +9,6 @@ import styles from './Main.module.css';
 import EnterModal from '../../components/Main/EnterModal';
 
 function Main() {
-  const [stores, setStores] = useState([]);
-
-  useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const res = await axios.get('http://localhost:4000/api/store'); // 포트 확인!
-        console.log('응답 데이터:', res.data);
-
-        setStores(res.data);
-      } catch (error) {
-        console.error('가게 데이터 불러오기 실패:', error);
-      }
-    };
-
-    fetchStores();
-  }, []);
-
   return (
     <>
       <div className={styles.wrapper}>

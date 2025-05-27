@@ -80,8 +80,8 @@ function AddRoomMain() {
                 onChange={(e) => setSelectedRestaurant(e.target.value)}
               >
                 <option value="">선택하기</option>
-                <option value="1">1번 식당</option>
-                <option value="2">2번 식당</option>
+                <option value="68346611f10e62892afba77b">1번 식당</option>
+                <option value="68346611f10e62892afba785">2번 식당</option>
               </select>
             </div>
 
@@ -149,15 +149,10 @@ function AddRoomMain() {
               <div className={styles.selectContainer}>
                 <p className={styles.selectTitle}>단과대</p>
                 <select className={styles.selectBtn} value={college} onChange={(e) => setCollege(e.target.value)}>
-                  <option
-                    value=""
-                    //   단과대 목록 받아오기
-                  >
-                    선택하기
-                  </option>
-                  {Object.entries(MajorList).map(([key, label]) => (
+                  <option value="">선택하기</option>
+                  {Object.entries(MajorList).map(([key, value]) => (
                     <option key={key} value={key}>
-                      {label}
+                      {value.name}
                     </option>
                   ))}
                 </select>

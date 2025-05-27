@@ -15,8 +15,8 @@ const roomSchema = new Schema(
   {
     currentUserId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
     storeId: {
-      // type: mongoose.Schema.Types.ObjectId,
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      // type: String,
       ref: 'Store',
       required: true,
     },
@@ -25,7 +25,7 @@ const roomSchema = new Schema(
       end: { type: Number, required: true },
     },
     filter: {
-      gender: { type: String, enum: ['남', '여'], required: false },
+      gender: { type: String, enum: ['male', 'female'], required: false },
       major: { type: String, required: false },
     },
     currentCount: { type: Number, default: 1 }, // 프론트에서 실시간 갱신 필요
