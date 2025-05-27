@@ -99,4 +99,5 @@ function StoreMajor() {
   );
 }
 
+
 export default StoreMajor;

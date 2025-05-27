@@ -231,7 +231,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "포케 올데이",
   benefits: ["메인메뉴 주문시 사이다 증정"],
-  img: "/images/poke.png"
+  img: "/assets/poke.png"
 },
 {
   storeIndex: "28",
@@ -259,7 +259,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "리김밥",
   benefits: ["메인메뉴 3개이상 주문시 프렌치프라이 또는 탄산음료 1캔 또는 에그 카스테라"],
-  img: "/images/rigimbap.png"
+  img: "/assets/rigimbap.png"
 },
 {
   storeIndex: "31",
@@ -283,7 +283,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "면식당",
   benefits: ["1인1메뉴 주문시 음료 증정"],
-  img: "/images/noodlehouse.png"
+  img: "/assets/noodlehouse.png"
 },
 {
   storeIndex: "34",
@@ -291,7 +291,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "밀플랜비",
   benefits: ["브리또 주문시 토핑추가(베이컨 제외)"],
-  img: "/images/mealplanb.png"
+  img: "/assets/mealplanb.png"
 },
 {
   storeIndex: "35",
@@ -299,7 +299,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "파동추야",
   benefits: ["3만원 구매시 음료1캔"],
-  img: "/images/padong.png"
+  img: "/assets/padong.png"
 },
 
 // 인문대학 - 주점
@@ -327,7 +327,7 @@ const storeSeed = async () => {
   type: "cafe",
   name: "커피나무",
   benefits: ["조각케이크 구매시 아메리카노 증정"],
-  img: "/images/coffeetree.png"
+  img: "/assets/coffeetree.png"
 },
 {
   storeIndex: "39",
@@ -343,7 +343,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "밀플랜비",
   benefits: ["부리또 주문 시 토핑 1개 추가 무료(베이컨 제외)"],
-  img: "/images/mealplanb_economics.png"
+  img: "/assets/mealplanb.png"
 },
 {
   storeIndex: "41",
@@ -359,7 +359,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "슬로우캘리",
   benefits: ["메인메뉴 2개 당 음료 1캔 제공"],
-  img: "/images/slowcali.png"
+  img: "/assets/slowcali.png"
 },
 {
   storeIndex: "43",
@@ -367,7 +367,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "면식당",
   benefits: ["2인 이하 음료수 1개, 3~4인 음료수 2개 서비스"],
-  img: "/images/noodlehouse_economics.png"
+  img: "/assets/noodlehouse.png"
 },
 {
   storeIndex: "44",
@@ -375,7 +375,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "파동추야",
   benefits: ["30000원 이상 주문 시 음료 제공"],
-  img: "/images/padong_economics.png"
+  img: "/assets/padong.png"
 },
 {
   storeIndex: "45",
@@ -399,7 +399,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "씨밤",
   benefits: ["20000원 이상 주문 시 즉석 라면 제공"],
-  img: "/images/ssibam.png"
+  img: "/assets/ssibam.png"
 },
 {
   storeIndex: "48",
@@ -424,7 +424,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "면식당",
   benefits: ["2인 이하 음료수 1개", "4인 이하 음료수 2개 서비스 제공"],
-  img: "/images/noodlehouse_biz.png"
+  img: "/assets/noodlehouse.png"
 },
 {
   storeIndex: "51",
@@ -435,7 +435,7 @@ const storeSeed = async () => {
     "4인 이상 주문 시 음료 한 캔 제공",
     "or 4인 이상 방문하여 5만원 이상 주문 시 소주 한 병 제공"
   ],
-  img: "/images/shiniju.png"
+  img: "/assets/shiniju.png"
 },
 {
   storeIndex: "52",
@@ -482,7 +482,7 @@ const storeSeed = async () => {
     "4인 테이블 기준 사이드메뉴 1개 + 음료 500ml 제공",
     "저녁 9시 이후 4인 이상 방문 시 사이드메뉴 + 음료1.5L(or 주류 2개) 제공"
   ],
-  img: "/images/gamachi.png"
+  img: "/assets/gamachi.png"
 },
 {
   storeIndex: "57",
@@ -490,15 +490,15 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "889 와규",
   benefits: ["점심메뉴 인당 5,000원 할인 (기간한정)"],
-  img: "/images/889.png"
+  img: "/assets/889.png"
 },
 {
   storeIndex: "58",
   college: "경영대학",
   type: "restaurant",
-  name: "상도동 솔뚝깽",
+  name: "상도동 솔뚝껑",
   benefits: ["리뷰 이벤트 참여 시 사이드메뉴(비빔면) + 음료 1개 제공"],
-  img: "/assets/sangdo.png"
+  img: "/assets/sangdo2.png"
 },
 {
   storeIndex: "59",
@@ -509,7 +509,7 @@ const storeSeed = async () => {
     "테이블당 메뉴 2개 이상 주문 시 음료 서비스",
     "(점심 12~2시, 저녁 5~7시 제외)"
   ],
-  img: "/images/gochu.png"
+  img: "/assets/gochu.png"
 },
 
 // 경영대학 - 카페
@@ -519,7 +519,7 @@ const storeSeed = async () => {
   type: "cafe",
   name: "커피나무",
   benefits: ["조각케이크 구입 시 아메리카노 증정"],
-  img: "/images/coffeetree_biz.png"
+  img: "/assets/coffeetree.png"
 },
 {
   storeIndex: "61",
@@ -538,7 +538,7 @@ const storeSeed = async () => {
     "모닝세트: 아메리카노 + 샌드위치 3500원",
     "음료 전 메뉴 무료 사이즈업"
   ],
-  img: "/images/breadnco.png"
+  img: "/assets/breadnco.png"
 },
 
 // 경영대학 - 주점
@@ -548,7 +548,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "인쌩맥주",
   benefits: ["카카오페이 or 토스결제 이용 시 5% 할인(메인메뉴 2개 주문 시)"],
-  img: "/images/inssaeng.png"
+  img: "/assets/inssaeng.png"
 },
 {
   storeIndex: "64",
@@ -564,7 +564,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "자월당",
   benefits: ["양맥 2잔 이상 주문 시 감자튀김 서비스 제공"],
-  img: "/images/jawoldang.png"
+  img: "/assets/jawoldang.png"
 },
 {
   storeIndex: "66",
@@ -572,7 +572,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "씨밤",
   benefits: ["20,000원 이상 주문 시 즉석 라면 제공"],
-  img: "/images/ssibam.png"
+  img: "/assets/ssibam.png"
 },
 {
   storeIndex: "67",
@@ -596,7 +596,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "인생맥주",
   benefits: ["메뉴 2개 이상 주문 후 현금, 계좌이체 또는 카카오페이 결제 시 5% 할인"],
-  img: "/images/insaengbeer.png"
+  img: "/assets/inssaeng.png"
 },
 {
   storeIndex: "70",
@@ -604,7 +604,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "파동추야",
   benefits: ["3만원 이상 주문 시 음료수 1개 제공"],
-  img: "/images/padong.png"
+  img: "/assets/padong.png"
 },
 {
   storeIndex: "71",
@@ -647,7 +647,7 @@ const storeSeed = async () => {
     "11:00~13:30 단품 포장 주문 시 컵음료 무료 제공",
     "13:30~16:30 더블/트리플 세트 주문 시 치즈감자 업그레이드"
   ],
-  img: "/images/crycheese.png"
+  img: "/assets/crycheese.png"
 },
 {
   storeIndex: "76",
@@ -655,7 +655,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "밀플랜비",
   benefits: ["부리또 주문 시 토핑 하나 증정"],
-  img: "/images/mealplanb.png"
+  img: "/assets/mealplanb.png"
 },
 {
   storeIndex: "77",
@@ -663,7 +663,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "멘동",
   benefits: ["1인 1메뉴 이상 주문 시, 2인 이상 음료 1개 제공 또는 4인 이상 음료 2개 제공"],
-  img: "/images/mendong.png"
+  img: "/assets/mendong.png"
 },
 {
   storeIndex: "78",
@@ -679,7 +679,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "면식당",
   benefits: ["2인 이하 음료수 1개 제공, 3~4인 이하 음료수 2개 제공"],
-  img: "/images/noodlehouse.png"
+  img: "/assets/noodlehouse.png"
 },
 {
   storeIndex: "80",
@@ -711,7 +711,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "핵밥",
   benefits: ["닭튀김 1pcs 제공 + 리뷰 참여 시 음료 추가 제공"],
-  img: "/images/haekbab.png"
+  img: "/assets/haekbab.png"
 },
 {
   storeIndex: "84",
@@ -735,7 +735,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "부리또집",
   benefits: ["오후 2:30~5:30 사이 방문 시 추가 토핑 4종 중 택 1추가"],
-  img: "/images/haekbab.png"
+  img: "/assets/zip.png"
 },
 {
   storeIndex: "87",
@@ -743,7 +743,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "은하수 식당",
   benefits: ["식사메뉴 2개당 음료수 1캔 제공"],
-  img: "/images/chwyhyang.png"
+  img: "/assets/oo2.png"
 },
 {
   storeIndex: "88",
@@ -759,7 +759,7 @@ const storeSeed = async () => {
   type: "cafe",
   name: "카페 트리암 숭실대점",
   benefits: ["현금/계좌이체 결제 시 10% 할인"],
-  img: "/images/treearm.png"
+  img: "/assets/treearm.png"
 },
 {
   storeIndex: "90",
@@ -775,7 +775,7 @@ const storeSeed = async () => {
   type: "cafe",
   name: "빽다방",
   benefits: ["화/목요일 4잔 이상 주문 시 아메리카노 or 아샷추 중 택1 추가 제공"],
-  img: "/images/paiks.png"
+  img: "/assets/paiks.png"
 },
 {
   storeIndex: "92",
@@ -783,7 +783,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "슬로우캘리",
   benefits: ["메인메뉴 2개 주문 시 캔 음료 제공"],
-  img: "/images/slowcali_natsci.png"
+  img: "/assets/slowcali.png"
 },
 {
   storeIndex: "93",
@@ -791,7 +791,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "크라이치즈버거",
   benefits: ["추후공개"],
-  img: "/images/crycheese_natsci.png"
+  img: "/assets/crycheese.png"
 },
 {
   storeIndex: "94",
@@ -807,7 +807,7 @@ const storeSeed = async () => {
   type: "restaurant",
   name: "밀플랜비",
   benefits: ["부리또 주문 시 토핑 추가 무료"],
-  img: "/images/mealplanb_natsci.png"
+  img: "/assets/mealplanb.png"
 },
 {
   storeIndex: "96",
@@ -831,7 +831,7 @@ const storeSeed = async () => {
   type: "pub",
   name: "인생맥주 숭실대점",
   benefits: ["3만원 이상 현금/계좌이체/페이 결제 시 5% 할인"],
-  img: "/images/inssaeng_natsci.png"
+  img: "/assets/inssaeng.png"
 }
  ];
 
