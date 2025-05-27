@@ -30,9 +30,9 @@ function MyEdit() {
   return (
     <div>
       <h2>정보 수정</h2>
-      <input name="username" value={form.username} onChange={handleChange} />
-      <input name="major" value={form.major} onChange={handleChange} />
-      <input name="studentNumber" value={form.studentNumber} onChange={handleChange} />
+      <input name="username" value={form.username} onChange={handleChange} placeholder="이름"/>
+      <input name="major" value={form.major} onChange={handleChange} placeholder="전공"/>
+      <input name="studentNumber" value={form.studentNumber} onChange={handleChange} placeholder="학번"/>
       <select name="gender" value={form.gender} onChange={handleChange}>
         <option value="">성별 선택</option>
         <option value="남">남</option>

@@ -1,24 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useState: 입력창에 입력한 값을 기억하기 위해 사용되는 "상태저장도구"
 import axios from 'axios';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom'
 
-function Login() {
-  const navigate = useNavigate();
 
-  const [userLoginId, setUserLoginId] = useState('');
+function Login() {
+  const navigate = useNavigate(); // 페이지 이동 도구
+
+  //입력창에서 유저가 입력한 ID와 PW를 저장
+  //userLoginId: 아이디 입력값을 저장
+  //setUserLoginId: 아이디 값을 변경하는 함수
+  const [userLoginId, setUserLoginId] = useState(''); 
   const [userLoginPw, setUserLoginPw] = useState('');
 
+  //이미 로그인된 상태인지 확인 
+  useEffect(() => {
+    const checkSession = async () => {
+      try{
+        await axios.get('http://localhost:4000/api/user/me', {
+          withCredentials: true,
+        });
+        navigate('/main');
+      } catch (err) {}
+    };
+    checkSession();     
+  }, [navigate]);
+  
+  //로그인 요청 함수 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:4000/api/user/login', {
-        userLoginId,
-        userLoginPw,
-      });
+      await axios.post(
+        'http://localhost:4000/api/user/login',
+        {
+          userLoginId,
+          userLoginPw,
+        },
+        {
+          withCredentials: true, // 세션 쿠키 포함
+        }
+      );
 
-      const userId = res.data.userId;
       alert('로그인 성공!');
-      navigate(`/main?userId=${userId}`);
+      navigate('/main');
     } catch (err) {
       alert('로그인 실패: ' + (err.response?.data?.message || err.message));
     }
@@ -35,14 +58,14 @@ function Login() {
       {/* 입력값 상태 연결 */}
       <input
         type="text"
-        placeholder="id: "
+        placeholder="id "
         className={styles.input}
         value={userLoginId}
         onChange={(e) => setUserLoginId(e.target.value)}
       />
       <input
         type="password"
-        placeholder="password: "
+        placeholder="password "
         className={styles.input}
         value={userLoginPw}
         onChange={(e) => setUserLoginPw(e.target.value)}
