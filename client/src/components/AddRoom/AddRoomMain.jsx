@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import useUserStore from '../../store/useUserStore';
 import { MajorList } from '../../constants/MajorList';
+import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 import styles from './AddRoomMain.module.css';
 
@@ -12,6 +15,7 @@ function AddRoomMain() {
   const [gender, setGender] = useState('');
   const [selectedPeople, setSelectedPeople] = useState(null);
   const isFormValid = selectedRestaurant && startTime && endTime && selectedPeople; // 버튼 활성화 조건
+  const navigate = useNavigate();
 
   // 현재 시간 기준 이후의 시간 옵션 생성
   const getAvailableHours = () => {
@@ -26,6 +30,34 @@ function AddRoomMain() {
     }
 
     return hours;
+  };
+
+  // 방 만들기 버튼 클릭
+  const handleCreateRoom = async () => {
+    if (!isFormValid) return;
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/room/addRoom', {
+        currentUserId: [user.userId],
+        storeId: selectedRestaurant,
+        time: {
+          start: parseInt(startTime),
+          end: parseInt(endTime),
+        },
+        maxCount: selectedPeople,
+        filter: {
+          gender: gender || null,
+          major: college || null,
+        },
+      });
+
+      alert('방이 성공적으로 생성되었습니다!');
+      console.log(response.data);
+      navigate('/main');
+    } catch (error) {
+      console.error('방 생성 실패:', error);
+      alert('방 생성 중 오류가 발생했습니다.');
+    }
   };
 
   const availableHours = getAvailableHours();
@@ -49,6 +81,7 @@ function AddRoomMain() {
               >
                 <option value="">선택하기</option>
                 <option value="1">1번 식당</option>
+                <option value="2">2번 식당</option>
               </select>
             </div>
 
@@ -145,6 +178,7 @@ function AddRoomMain() {
         <div className={styles.btnContainer}>
           <button
             className={`${styles.submitBtn} ${isFormValid ? styles.submitBtnActive : styles.submitBtnDeactive}`}
+            onClick={handleCreateRoom}
             disabled={!isFormValid}
           >
             방 만들기

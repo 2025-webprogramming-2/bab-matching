@@ -1,10 +1,10 @@
-import mongoose, { Schema, model } from "mongoose";
-import { getCurrentTime } from "../utils/currentTime.js";
+import mongoose, { Schema, model } from 'mongoose';
+import { getCurrentTime } from '../utils/currentTime.js';
 
 const chatSchema = new Schema({
   creatorId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   content: { type: String, required: true },
@@ -13,12 +13,11 @@ const chatSchema = new Schema({
 
 const roomSchema = new Schema(
   {
-    currentUserId: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    ],
+    currentUserId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
     storeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Store",
+      // type: mongoose.Schema.Types.ObjectId,
+      type: String,
+      ref: 'Store',
       required: true,
     },
     time: {
@@ -26,7 +25,7 @@ const roomSchema = new Schema(
       end: { type: Number, required: true },
     },
     filter: {
-      gender: { type: String, enum: ["남", "여"], required: false },
+      gender: { type: String, enum: ['남', '여'], required: false },
       major: { type: String, required: false },
     },
     currentCount: { type: Number, default: 1 }, // 프론트에서 실시간 갱신 필요
@@ -34,7 +33,7 @@ const roomSchema = new Schema(
     isFilled: { type: Boolean, default: false },
     chats: [chatSchema],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export default model("Room", roomSchema, "room");
+export default model('Room', roomSchema, 'room');
