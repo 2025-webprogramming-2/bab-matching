@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import styles from './AddRoom.module.css';
+import styles from './AddRoomBtn.module.css';
 
-function AddRoom() {
+function AddRoomBtn() {
   return (
     <>
       <div className={styles.wrapper}>
@@ -14,4 +14,4 @@ function AddRoom() {
   );
 }
 
-export default AddRoom;
+export default AddRoomBtn;
