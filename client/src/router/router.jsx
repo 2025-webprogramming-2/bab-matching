@@ -9,7 +9,7 @@ import MyEdit from '../pages/my/MyEdit';
 import Room from '../pages/room/Room';
 import SignUp from '../pages/login/Signup';
 import NotFound from '../pages/notFound';
-import AddRoom from '../components/Main/AddRoom';
+import AddRoom from '../pages/addroom/AddRoom';
 
 const router = createBrowserRouter([
   {

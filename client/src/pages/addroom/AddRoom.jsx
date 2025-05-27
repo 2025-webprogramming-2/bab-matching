@@ -1,8 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import AddRoomMain from '../../components/AddRoom/AddRoomMain';
 
 function AddRoom() {
-  return <>Room</>;
+  return (
+    <>
+      <AddRoomMain />
+    </>
+  );
 }
 
 export default AddRoom;

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import CurrentRoom from '../../components/Main/CurrentRoom';
 import RoomList from '../../components/Main/RoomList';
-import AddRoom from '../../components/Main/AddRoom';
+import AddRoomBtn from '../../components/Main/AddRoomBtn';
 
 import styles from './Main.module.css';
 import EnterModal from '../../components/Main/EnterModal';
@@ -31,7 +31,7 @@ function Main() {
       <div className={styles.wrapper}>
         <div className={styles.bodyContainer}>
           <div className={styles.leftContainer}>
-            <AddRoom />
+            <AddRoomBtn />
             <CurrentRoom />
           </div>
           <RoomList />
