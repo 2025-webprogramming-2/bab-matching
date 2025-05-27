@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import useUserStore from '../../store/useUserStore';
+import { MajorList } from '../../constants/MajorList';
+
 import styles from './AddRoomMain.module.css';
 
 function AddRoomMain() {
@@ -7,6 +10,8 @@ function AddRoomMain() {
   const [endTime, setEndTime] = useState('');
   const [college, setCollege] = useState('');
   const [gender, setGender] = useState('');
+  const [selectedPeople, setSelectedPeople] = useState(null);
+  const isFormValid = selectedRestaurant && startTime && endTime && selectedPeople; // 버튼 활성화 조건
 
   // 현재 시간 기준 이후의 시간 옵션 생성
   const getAvailableHours = () => {
@@ -24,7 +29,10 @@ function AddRoomMain() {
   };
 
   const availableHours = getAvailableHours();
-
+  const { user, loading } = useUserStore();
+  console.log('user 전체:', user);
+  if (loading) return <div>유저 정보 불러오는 중...</div>;
+  if (!user) return <div>로그인 정보가 없습니다</div>;
   return (
     <>
       <div className={styles.wrapper}>
@@ -35,10 +43,12 @@ function AddRoomMain() {
               <select
                 className={`${styles.selectBtn} ${styles.storeName}`}
                 //   식당 목록 받아오기
+
                 value={selectedRestaurant}
                 onChange={(e) => setSelectedRestaurant(e.target.value)}
               >
                 <option value="">선택하기</option>
+                <option value="1">1번 식당</option>
               </select>
             </div>
 
@@ -85,7 +95,13 @@ function AddRoomMain() {
               <p className={styles.selectTitle}>인원수</p>
               <div className={styles.peopleContainer}>
                 {[2, 3, 4, 5, 6].map((num) => (
-                  <div key={num} className={styles.peopleBtn}>
+                  <div
+                    key={num}
+                    className={`${styles.peopleBtn} ${
+                      selectedPeople === num ? styles.peopleBtnActive : styles.peopleBtnDeactive
+                    }`}
+                    onClick={() => setSelectedPeople(num)}
+                  >
                     {num}
                   </div>
                 ))}
@@ -106,6 +122,11 @@ function AddRoomMain() {
                   >
                     선택하기
                   </option>
+                  {Object.entries(MajorList).map(([key, label]) => (
+                    <option key={key} value={key}>
+                      {label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -122,7 +143,12 @@ function AddRoomMain() {
         </div>
 
         <div className={styles.btnContainer}>
-          <button>방 만들기</button>
+          <button
+            className={`${styles.submitBtn} ${isFormValid ? styles.submitBtnActive : styles.submitBtnDeactive}`}
+            disabled={!isFormValid}
+          >
+            방 만들기
+          </button>
         </div>
       </div>
     </>
