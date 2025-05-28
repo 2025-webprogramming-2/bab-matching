@@ -1,0 +1,108 @@
+.container {
+  padding: 20px;
+  background-color: #fef9f3;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #5a2a00;
+  margin-bottom: 30px;
+}
+
+.card {
+  display: flex;
+  background-color: #fffdf9;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+.image {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 16px;
+  background-color: #ffd8aa;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #5a2a00;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.benefitList {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.emptyMessage {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 18px;
+  color: #888;
+}
+
+.categoryButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.categoryButton {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: #fff;
+  border: 2px solid #d4a373;
+  color: #d4a373;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  background-color: #f3e9dd;
+}
+
+.active {
+  background-color: #d4a373;
+  color: white;
+}
+
+.headerRow {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 2rem; /* ⭐ 크기 키움 */
+  color: #ccc;
+  position: absolute;
+  top: -10px;      /* 박스 위로 이동 */
+  right: -10px;    /* 박스 오른쪽으로 이동 */
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: gold;
+}
