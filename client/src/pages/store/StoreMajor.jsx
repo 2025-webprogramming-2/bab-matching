@@ -6,6 +6,7 @@ import styles from './StoreMajor.module.css';
 function StoreMajor() {
   const { collegeId } = useParams();
   const [stores, setStores] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const majorMap = {
@@ -34,58 +35,61 @@ function StoreMajor() {
     fetchStores();
   }, [collegeName]);
 
-  const filteredStores =
-    selectedCategory === 'all'
-      ? stores
-      : stores.filter((store) => store.type === selectedCategory);
+  // ⭐ 찜 토글 함수
+  const handleToggleFavorite = (storeId) => {
+    setFavorites((prev) =>
+      prev.includes(storeId) ? prev.filter((id) => id !== storeId) : [storeId, ...prev]
+    );
+  };
+
+  // ⭐ 찜 순서 정렬 + 카테고리 필터 적용
+  const filteredStores = stores
+    .filter((store) => selectedCategory === 'all' || store.type === selectedCategory)
+    .sort((a, b) => {
+      const aFav = favorites.includes(a._id);
+      const bFav = favorites.includes(b._id);
+      return aFav === bFav ? 0 : aFav ? -1 : 1;
+    });
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{collegeName}</h1>
 
+      {/* 카테고리 버튼 */}
       <div className={styles.categoryButtons}>
-        <button
-          className={`${styles.categoryButton} ${
-            selectedCategory === 'all' ? styles.active : ''
-          }`}
-          onClick={() => setSelectedCategory('all')}
-        >
-          전체
-        </button>
-        <button
-          className={`${styles.categoryButton} ${
-            selectedCategory === 'restaurant' ? styles.active : ''
-          }`}
-          onClick={() => setSelectedCategory('restaurant')}
-        >
-          음식점
-        </button>
-        <button
-          className={`${styles.categoryButton} ${
-            selectedCategory === 'cafe' ? styles.active : ''
-          }`}
-          onClick={() => setSelectedCategory('cafe')}
-        >
-          카페
-        </button>
-        <button
-          className={`${styles.categoryButton} ${
-            selectedCategory === 'pub' ? styles.active : ''
-          }`}
-          onClick={() => setSelectedCategory('pub')}
-        >
-          술집
-        </button>
+        {[
+          { label: '전체', value: 'all' },
+          { label: '음식점', value: 'restaurant' },
+          { label: '카페', value: 'cafe' },
+          { label: '술집', value: 'pub' }
+        ].map((cat) => (
+          <button
+            key={cat.value}
+            className={`${styles.categoryButton} ${selectedCategory === cat.value ? styles.active : ''}`}
+            onClick={() => setSelectedCategory(cat.value)}
+          >
+            {cat.label}
+          </button>
+        ))}
       </div>
 
+      {/* 가게 리스트 */}
       {filteredStores.length === 0 ? (
         <p className={styles.emptyMessage}>제휴 가게가 없습니다.</p>
       ) : (
         filteredStores.map((store, index) => (
-          <div className={styles.card} key={`${store.name}-${index}`}>
+          <div className={styles.card} key={store._id}>
             <img src={store.img} alt={store.name} className={styles.image} />
             <div className={styles.info}>
-              <h2 className={styles.name}>{store.name}</h2>
+              <div className={styles.headerRow}>
+                <h2 className={styles.name}>{store.name}</h2>
+                <span
+                  className={`${styles.star} ${favorites.includes(store._id) ? styles.filled : ''}`}
+                  onClick={() => handleToggleFavorite(store._id)}
+                >
+                  ★
+                </span>
+              </div>
               <ul className={styles.benefitList}>
                 {(store.benefits || []).map((benefit, i) => (
                   <li key={i}>{benefit}</li>
@@ -98,6 +102,5 @@ function StoreMajor() {
     </div>
   );
 }
-
 
 export default StoreMajor;

@@ -85,3 +85,24 @@
   background-color: #d4a373;
   color: white;
 }
+
+.headerRow {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 2rem; /* ⭐ 크기 키움 */
+  color: #ccc;
+  position: absolute;
+  top: -10px;      /* 박스 위로 이동 */
+  right: -10px;    /* 박스 오른쪽으로 이동 */
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: gold;
+}
