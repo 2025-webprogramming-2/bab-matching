@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'; // useState: 입력창에 입력한 값을 기억하기 위해 사용되는 "상태저장도구"
 import axios from 'axios';
 import styles from './Login.module.css';
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../store/useUserStore';
 
 function Login() {
   const navigate = useNavigate(); // 페이지 이동 도구
@@ -10,23 +10,25 @@ function Login() {
   //입력창에서 유저가 입력한 ID와 PW를 저장
   //userLoginId: 아이디 입력값을 저장
   //setUserLoginId: 아이디 값을 변경하는 함수
-  const [userLoginId, setUserLoginId] = useState(''); 
+  const [userLoginId, setUserLoginId] = useState('');
   const [userLoginPw, setUserLoginPw] = useState('');
 
-  //이미 로그인된 상태인지 확인 
+  const { setUser } = useUserStore();
+
+  //이미 로그인된 상태인지 확인
   useEffect(() => {
     const checkSession = async () => {
-      try{
+      try {
         await axios.get('http://localhost:4000/api/user/me', {
           withCredentials: true,
         });
         navigate('/main');
       } catch (err) {}
     };
-    checkSession();     
+    checkSession();
   }, [navigate]);
-  
-  //로그인 요청 함수 
+
+  //로그인 요청 함수
   const handleLogin = async () => {
     try {
       await axios.post(
@@ -37,9 +39,15 @@ function Login() {
         },
         {
           withCredentials: true, // 세션 쿠키 포함
-        }
+        },
       );
+      // 로그인 성공 후 유저 정보 불러오기
+      const res = await axios.get('http://localhost:4000/api/user/me', {
+        withCredentials: true,
+      });
 
+      setUser(res.data); // 전역 상태에 저장
+      console.log(res.data);
       alert('로그인 성공!');
       navigate('/main');
     } catch (err) {
@@ -49,7 +57,7 @@ function Login() {
 
   const handleSignup = () => {
     navigate('/Signup');
-  }
+  };
 
   return (
     <div className={styles.container}>

@@ -34,7 +34,8 @@
   width: 80%;
   margin: 0 2rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .top > h1 {
@@ -48,6 +49,7 @@
   font-style: normal;
   font-weight: 400;
   white-space: nowrap;
+  text-align: right;
 }
 
 .bottom {
