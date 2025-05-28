@@ -1,0 +1,26 @@
+/* src/components/BottomNav.css */
+/* BottomNav.css */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 372px;  
+  height: 60px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 8px 12px;
+}
