@@ -1,5 +1,7 @@
 import express from 'express';
 import Room from '../models/room_schema.js';
+import User from '../models/user_schema.js';
+
 import { getCurrentRoom, getHistoryRoom, postRoom } from '../controller/room/room.js';
 
 const roomRouter = express.Router();
@@ -8,9 +10,10 @@ const roomRouter = express.Router();
 roomRouter.post('/addRoom', async (req, res) => {
   try {
     const { currentUserId, storeId, time, maxCount, filter } = req.body;
+    const creatorUserId = Array.isArray(currentUserId) ? currentUserId[0] : currentUserId;
 
     const newRoom = new Room({
-      currentUserId: [currentUserId],
+      currentUserId,
       storeId,
       time,
       maxCount,
@@ -18,6 +21,12 @@ roomRouter.post('/addRoom', async (req, res) => {
     });
 
     const savedRoom = await newRoom.save();
+
+    await User.findByIdAndUpdate(
+      creatorUserId, // 단일 유저
+      { $push: { currentRoom: savedRoom._id } },
+      { new: true },
+    );
 
     res.status(201).json({ message: '방 만들기 성공', roomId: savedRoom._id });
   } catch (error) {
@@ -43,6 +52,17 @@ roomRouter.get('/roomList', async (req, res) => {
   } catch (err) {
     console.error('방 목록 불러오기 오류:', err);
     res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 현재 방 목록 가져오기 - main
+roomRouter.post('/multipleRoom', async (req, res) => {
+  try {
+    const { roomIds } = req.body;
+    const rooms = await Room.find({ _id: { $in: roomIds } }).populate('storeId');
+    res.status(200).json(rooms);
+  } catch (err) {
+    res.status(500).json({ message: '방 정보 불러오기 실패' });
   }
 });
 

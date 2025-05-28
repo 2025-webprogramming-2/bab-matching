@@ -68,7 +68,7 @@ const router = createBrowserRouter([
 
   {
     // 매칭룸 페이지 - 채팅
-    path: '/room',
+    path: '/room:sroreId',
     element: <Room />,
   },
 

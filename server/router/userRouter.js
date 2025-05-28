@@ -1,5 +1,5 @@
 import express from 'express';
-import User from '../models/user_schema.js'
+import User from '../models/user_schema.js';
 
 const userRouter = express.Router();
 
@@ -32,14 +32,14 @@ userRouter.post('/signup', async (req, res) => {
   }
 });
 
-
-// 로그인 API 
+// 로그인 API
 userRouter.post('/login', async (req, res) => {
   try {
     const { userLoginId, userLoginPw } = req.body; //프론트에서 보낸 아이디와 비번
 
     const user = await User.findOne({ userLoginId }); // Mongo DB에서 같은 아이디인 테이블 찾기
-    if (!user || user.userLoginPw !== userLoginPw) { // 비밀번호 비교
+    if (!user || user.userLoginPw !== userLoginPw) {
+      // 비밀번호 비교
       return res.status(401).json({ message: '아이디 또는 비밀번호가 틀렸습니다.' });
     }
 
@@ -50,8 +50,8 @@ userRouter.post('/login', async (req, res) => {
       username: user.username,
       gender: user.gender,
       major: user.major,
-      studentNumber: user.studentNumber
-    }
+      studentNumber: user.studentNumber,
+    };
     console.log('로그인 성공 - 세션에 저장된 사용자:', req.session.user);
     console.log('전체 세션 상태:', req.session);
 
@@ -74,6 +74,14 @@ userRouter.get('/me', (req, res) => {
   res.status(200).json(req.session.user);
 });
 
+userRouter.get('/me/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).populate('currentRoom');
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: '유저 정보 불러오기 실패' });
+  }
+});
 
 //사용자 정보 가져오기(조회용)
 userRouter.get('/:id', async (req, res) => {
@@ -86,8 +94,6 @@ userRouter.get('/:id', async (req, res) => {
     res.status(500).json({ message: '서버 오류' });
   }
 });
-
-
 
 //사용자 정보 수정하기(업데이트용)
 userRouter.put('/:id', async (req, res) => {
@@ -102,15 +108,15 @@ userRouter.put('/:id', async (req, res) => {
 });
 
 //로그아웃 API
-userRouter.post('/logout', (req, res) =>{
+userRouter.post('/logout', (req, res) => {
   req.session.destroy((err) => {
-    if(err) {
+    if (err) {
       console.error('로그아웃 실패:', err);
-      return res.status(500).json({message: '로그아웃 중 오류가 발생했습니다.'});
+      return res.status(500).json({ message: '로그아웃 중 오류가 발생했습니다.' });
     }
     // 세션 쿠키 삭제
     res.clearCookie('connect.sid');
-    res.status(200).json({ message: '로그아웃 성공'});
+    res.status(200).json({ message: '로그아웃 성공' });
   });
 });
 
