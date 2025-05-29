@@ -35,12 +35,9 @@ const router = createBrowserRouter([
     element: <StoreMain />,
   },
   {
-  path: '/store/:collegeId',
-  element: <StoreMajor />,
+    path: '/store/:collegeId',
+    element: <StoreMajor />,
   },
-
-
-
 
   {
     // 방 생성 페이지
@@ -68,7 +65,7 @@ const router = createBrowserRouter([
 
   {
     // 매칭룸 페이지 - 채팅
-    path: '/room:sroreId',
+    path: '/room/:roomId',
     element: <Room />,
   },
 
