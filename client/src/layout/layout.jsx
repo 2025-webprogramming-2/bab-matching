@@ -1,14 +1,24 @@
 // src/layout/Layout.jsx
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import BottomNav from "../components/BottomNav/BottomNav";
-import "../components/BottomNav/BottomNav.css"; // 스타일도 꼭 import
+import "../components/BottomNav/BottomNav.css";
 
 function Layout() {
+  const location = useLocation();
+
+  // 하단바 제외할 경로
+  const hideBottomNavRoutes = ["/addroom", "/room"];
+
+  // 현재 경로가 제외 대상인지 확인
+  const shouldHideBottomNav = hideBottomNavRoutes.some((path) =>
+    location.pathname.startsWith(path)
+  );
+
   return (
     <div className="layout-container">
-      <Outlet /> {/* 자식 페이지가 여기에 들어옴 */}
-      <BottomNav /> {/* 항상 하단 고정 */}
+      <Outlet />
+      {!shouldHideBottomNav && <BottomNav />}
     </div>
   );
 }

@@ -32,7 +32,7 @@ function StoreMain() {
           >
             <div className={styles.iconBox}>
               <img
-                src={`/${college.id}.jpeg`}
+                src={`/assets/${college.id}.png`}
                 alt={`${college.name} 아이콘`}
                 className={styles.iconImage}
               />
