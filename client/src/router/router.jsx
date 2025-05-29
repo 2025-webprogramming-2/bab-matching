@@ -22,6 +22,14 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
+    path: 'room/:roomId',
+    element: <Room />,
+  },
+  {
+    path: 'addroom',
+    element: <AddRoom />,
+  },
+  {
     path: '/',
     element: <Layout />, // 하단바 있는 공통 레이아웃
     children: [
@@ -38,20 +46,12 @@ const router = createBrowserRouter([
         element: <StoreMajor />,
       },
       {
-        path: 'addroom',
-        element: <AddRoom />,
-      },
-      {
         path: 'my',
         element: <My />,
       },
       {
         path: 'my/edit',
         element: <MyEdit />,
-      },
-      {
-        path: 'room:storeId',
-        element: <Room />,
       },
     ],
   },
