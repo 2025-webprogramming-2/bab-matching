@@ -66,4 +66,56 @@ roomRouter.post('/multipleRoom', async (req, res) => {
   }
 });
 
+// 단일 방 정보 가져오기
+roomRouter.get('/:roomId', async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.roomId).populate('storeId');
+    if (!room) {
+      return res.status(404).json({ message: '방을 찾을 수 없습니다' });
+    }
+    res.status(200).json(room);
+  } catch (err) {
+    console.error('방 조회 오류:', err);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 채팅 작성하기
+roomRouter.post('/:roomId/chat', async (req, res) => {
+  try {
+    const { content, creatorId } = req.body;
+    const { roomId } = req.params;
+
+    if (!content || !creatorId) {
+      return res.status(400).json({ message: '내용과 작성자가 필요합니다' });
+    }
+
+    const chat = {
+      content,
+      creatorId,
+      createdAt: new Date(),
+    };
+
+    const updatedRoom = await Room.findByIdAndUpdate(roomId, { $push: { chats: chat } }, { new: true }).populate({
+      path: 'chats.creatorId',
+      model: 'User',
+    });
+
+    res.status(200).json(updatedRoom.chats);
+  } catch (err) {
+    console.error('채팅 저장 실패:', err);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 방의 채팅 불러오기 (초기 로딩)
+roomRouter.get('/:roomId/chat', async (req, res) => {
+  try {
+    const room = await Room.findById(req.params.roomId).populate('chats.creatorId');
+    res.status(200).json(room.chats);
+  } catch (err) {
+    console.error('채팅 불러오기 오류:', err);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
 export default roomRouter;
