@@ -11,7 +11,9 @@ function StoreInfo({ roomId }) {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/room/${roomId}`);
+        const res = await axios.get(`http://localhost:4000/api/room/${roomId}`, {
+          withCredentials: true,
+        });
         setRoomData(res.data);
       } catch (err) {
         console.error('방 정보 가져오기 실패:', err);

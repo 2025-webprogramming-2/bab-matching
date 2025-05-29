@@ -11,7 +11,9 @@ function Chat({ roomId }) {
   // 채팅 불러오기
   const fetchChats = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/room/${roomId}/chat`);
+      const res = await axios.get(`http://localhost:4000/api/room/${roomId}/chat`, {
+        withCredentials: true,
+      });
       setChats(res.data);
     } catch (err) {
       console.error('채팅 불러오기 실패:', err);
@@ -29,10 +31,16 @@ function Chat({ roomId }) {
     if (!newChat.trim()) return;
 
     try {
-      const res = await axios.post(`http://localhost:4000/api/room/${roomId}/chat`, {
-        content: newChat,
-        creatorId: user.userId,
-      });
+      const res = await axios.post(
+        `http://localhost:4000/api/room/${roomId}/chat`,
+        {
+          content: newChat,
+          creatorId: user.userId,
+        },
+        {
+          withCredentials: true,
+        },
+      );
       setChats(res.data); // 새 채팅 목록으로 업데이트
       setNewChat('');
     } catch (err) {
