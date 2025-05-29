@@ -8,69 +8,54 @@ import MyRoomHistory from '../pages/my/MyRoomHistory';
 import MyEdit from '../pages/my/MyEdit';
 import Room from '../pages/room/Room';
 import SignUp from '../pages/login/Signup';
-import NotFound from '../pages/notFound';
+import NotFound from '../pages/NotFound';
 import AddRoom from '../pages/addroom/AddRoom';
+import Layout from '../layout/layout.jsx';
 
 const router = createBrowserRouter([
   {
-    // 온보딩 페이지 - 로그인
-    path: '/',
+    path: '/', // 로그인은 Layout 없이
     element: <Login />,
   },
   {
-    // 회원가입 페이지
-    path: '/signUp',
+    path: '/signUp', // 회원가입도 Layout 없이
     element: <SignUp />,
   },
-
   {
-    // 메인 페이지
-    path: '/main',
-    element: <Main />,
-  },
-
-  {
-    // 식당 메인 페이지 - 단과대 목록
-    path: '/store',
-    element: <StoreMain />,
+    path: 'room/:roomId',
+    element: <Room />,
   },
   {
-    path: '/store/:collegeId',
-    element: <StoreMajor />,
-  },
-
-  {
-    // 방 생성 페이지
-    path: '/addroom',
+    path: 'addroom',
     element: <AddRoom />,
   },
   {
-    // 마이페이지
-    path: '/my',
-    element: <My />,
+    path: '/',
+    element: <Layout />, // 하단바 있는 공통 레이아웃
     children: [
       {
-        // 마이페이지 - 매칭 히스토리
-        index: true,
-        element: <MyRoomHistory />,
+        path: 'main',
+        element: <Main />,
+      },
+      {
+        path: 'store',
+        element: <StoreMain />,
+      },
+      {
+        path: 'store/:collegeId',
+        element: <StoreMajor />,
+      },
+      {
+        path: 'my',
+        element: <My />,
+      },
+      {
+        path: 'my/edit',
+        element: <MyEdit />,
       },
     ],
   },
-
   {
-    //내 정보수정 페이지
-    path: '/my/edit',
-    element: <MyEdit />,
-  },
-
-  {
-    // 매칭룸 페이지 - 채팅
-    path: '/room/:roomId',
-    element: <Room />,
-  },
-
-  {
-    // 에러 페이지
     path: '*',
     element: <NotFound />,
   },
