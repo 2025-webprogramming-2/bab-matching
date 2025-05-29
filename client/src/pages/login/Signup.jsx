@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './Signup.module.css';
+import { MajorList } from '../../constants/MajorList'; // 추가
 
 function Signup() {
   const navigate = useNavigate();
@@ -43,7 +44,19 @@ function Signup() {
         <option value="여">여</option>
       </select>
 
-      <input name="major" placeholder="전공" onChange={handleChange} className={styles.input} />
+      <select
+        name="major"
+        onChange={handleChange}
+        className={styles.input}
+        value={form.major}
+      >
+        <option value="">단과대 선택</option>
+        {Object.entries(MajorList).map(([key, value]) => (
+          <option key={key} value={key}>
+            {value.name}
+          </option>
+        ))}
+      </select>
       <input name="studentNumber" placeholder="학번" type="number" onChange={handleChange} className={styles.input} />
 
       <button className={styles.signupBtn} onClick={handleSignup}>
