@@ -9,7 +9,9 @@ function RoomList() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/api/room/roomList');
+        const res = await axios.get('http://localhost:4000/api/room/roomList', {
+          withCredentials: true,
+        });
         setRooms(res.data);
       } catch (err) {
         console.error('방 목록 불러오기 실패:', err);

@@ -37,19 +37,25 @@ function AddRoomMain() {
     if (!isFormValid) return;
 
     try {
-      const response = await axios.post('http://localhost:4000/api/room/addRoom', {
-        currentUserId: [user.userId],
-        storeId: selectedRestaurant,
-        time: {
-          start: parseInt(startTime),
-          end: parseInt(endTime),
+      const response = await axios.post(
+        'http://localhost:4000/api/room/addRoom',
+        {
+          currentUserId: [user.userId],
+          storeId: selectedRestaurant,
+          time: {
+            start: parseInt(startTime),
+            end: parseInt(endTime),
+          },
+          maxCount: selectedPeople,
+          filter: {
+            gender: gender || null,
+            major: college || null,
+          },
         },
-        maxCount: selectedPeople,
-        filter: {
-          gender: gender || null,
-          major: college || null,
+        {
+          withCredentials: true,
         },
-      });
+      );
 
       alert('방이 성공적으로 생성되었습니다!');
       console.log(response.data);

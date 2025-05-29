@@ -17,7 +17,9 @@ function CurrentRoom() {
       try {
         console.log('🔍 userId:', user.userId);
 
-        const res = await axios.get(`http://localhost:4000/api/user/me/${user.userId}`);
+        const res = await axios.get(`http://localhost:4000/api/user/me/${user.userId}`, {
+          withCredentials: true,
+        });
         console.log('유저 정보 불러옴:', res.data);
 
         const userData = res.data;
@@ -26,9 +28,15 @@ function CurrentRoom() {
           console.log('currentRoom 없음');
           setRooms([]);
         } else {
-          const roomRes = await axios.post(`http://localhost:4000/api/room/multipleRoom`, {
-            roomIds: userData.currentRoom,
-          });
+          const roomRes = await axios.post(
+            `http://localhost:4000/api/room/multipleRoom`,
+            {
+              roomIds: userData.currentRoom,
+            },
+            {
+              withCredentials: true,
+            },
+          );
           console.log('방 정보 불러옴:', roomRes.data);
           setRooms(roomRes.data);
         }
