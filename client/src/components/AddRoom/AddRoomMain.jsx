@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useUserStore from '../../store/useUserStore';
 import { MajorList } from '../../constants/MajorList';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,9 @@ function AddRoomMain() {
   const isFormValid = selectedRestaurant && startTime && endTime && selectedPeople; // 버튼 활성화 조건
   const navigate = useNavigate();
 
+  const [collegeMajor, setCollegeMajor] = useState('');
+  const [restaurantList, setRestaurantList] = useState([]);
+
   // 현재 시간 기준 이후의 시간 옵션 생성
   const getAvailableHours = () => {
     const now = new Date();
@@ -30,6 +33,41 @@ function AddRoomMain() {
     }
 
     return hours;
+  };
+
+  // 단과대 음식점 리스트 가져오기
+  useEffect(() => {
+    const fetchStores = async () => {
+      if (!collegeMajor) return;
+
+      try {
+        const collegeName = MajorList[collegeMajor]?.name;
+        const res = await axios.get(`http://localhost:4000/api/store?college=${collegeName}`);
+        setRestaurantList(res.data);
+      } catch (error) {
+        console.error('식당 불러오기 실패:', error);
+      }
+    };
+
+    fetchStores();
+  }, [collegeMajor]);
+
+  // 필터링 토글
+  const handleToggleMajor = () => {
+    if (college === user.major) {
+      setCollege('');
+    } else {
+      setCollege(user.major);
+    }
+  };
+
+  const handleToggleGender = () => {
+    const convertedGender = user.gender === '남' ? 'male' : 'female';
+    if (gender === convertedGender) {
+      setGender('');
+    } else {
+      setGender(convertedGender);
+    }
   };
 
   // 방 만들기 버튼 클릭
@@ -77,17 +115,32 @@ function AddRoomMain() {
         <div>
           <div className={styles.mustSection}>
             <div className={styles.selectContainer}>
-              <p className={styles.selectTitle}>식당 이름</p>
+              <p className={styles.selectTitle}>식당</p>
+              <select
+                className={styles.selectBtn}
+                value={collegeMajor}
+                onChange={(e) => setCollegeMajor(e.target.value)}
+              >
+                <option value="">단과대 </option>
+                {Object.entries(MajorList).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value.name}
+                  </option>
+                ))}
+              </select>
+
               <select
                 className={`${styles.selectBtn} ${styles.storeName}`}
-                //   식당 목록 받아오기
-
                 value={selectedRestaurant}
                 onChange={(e) => setSelectedRestaurant(e.target.value)}
+                disabled={!restaurantList.length}
               >
-                <option value="">선택하기</option>
-                <option value="68346611f10e62892afba77b">1번 식당</option>
-                <option value="68346611f10e62892afba785">2번 식당</option>
+                <option value="">단과대 먼저 선택해주세요</option>
+                {restaurantList.map((store) => (
+                  <option key={store._id} value={store._id}>
+                    {store.name}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -149,28 +202,34 @@ function AddRoomMain() {
           </div>
           <div className={styles.optionContainer}>
             <h1>
-              필터링<span className={styles.orangeText}>(선택)</span>
+              매칭 필터링<span className={styles.orangeText}>(선택)</span>
             </h1>
             <div className={styles.filterContainer}>
-              <div className={styles.selectContainer}>
-                <p className={styles.selectTitle}>단과대</p>
-                <select className={styles.selectBtn} value={college} onChange={(e) => setCollege(e.target.value)}>
-                  <option value="">선택하기</option>
-                  {Object.entries(MajorList).map(([key, value]) => (
-                    <option key={key} value={key}>
-                      {value.name}
-                    </option>
-                  ))}
-                </select>
+              <div className={styles.OptionSelectContainer} onClick={handleToggleMajor}>
+                <div className={`${styles.btn} ${college === user.major ? styles.btnActive : ''}`}></div>
+                <p
+                  className={`${styles.selectTitle} ${
+                    college === user.major ? styles.filterActive : styles.filterDeactive
+                  }`}
+                >
+                  {MajorList[user.major]?.name}만
+                </p>
               </div>
 
-              <div className={styles.selectContainer}>
-                <p className={styles.selectTitle}>성별</p>
-                <select className={styles.selectBtn} value={gender} onChange={(e) => setGender(e.target.value)}>
-                  <option value="">선택하기</option>
-                  <option value="male">남자만</option>
-                  <option value="female">여자만</option>
-                </select>
+              <div className={styles.OptionSelectContainer} onClick={handleToggleGender}>
+                <div
+                  className={`${styles.btn} ${
+                    gender === (user.gender === '남' ? 'male' : 'female') ? styles.btnActive : ''
+                  }`}
+                ></div>
+
+                <p
+                  className={`${styles.selectTitle} ${
+                    gender === (user.gender === '남' ? 'male' : 'female') ? styles.filterActive : styles.filterDeactive
+                  }`}
+                >
+                  {user.gender}자만
+                </p>
               </div>
             </div>
           </div>

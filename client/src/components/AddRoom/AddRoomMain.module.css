@@ -101,14 +101,15 @@
 
 .filterContainer {
   display: flex;
-  gap: 1.5rem;
+  gap: 5rem;
+  justify-content: center;
 }
 
 .time {
   width: 9rem;
 }
 .storeName {
-  width: 23rem;
+  width: 16.5rem;
 }
 .timeContainer {
   display: flex;
@@ -152,4 +153,34 @@
 .submitBtnDeactive {
   background: #fad9b0;
   color: #717171;
+}
+
+.OptionSelectContainer {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.btn {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background-color: #fff;
+  border: 1px solid #e78f57;
+}
+
+.btnActive {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background-color: #e78f57;
+  border: 1px solid #e78f57;
+}
+.filterActive {
+  color: #000;
+}
+
+.filterDeactive {
+  color: #b7b7b7;
 }
