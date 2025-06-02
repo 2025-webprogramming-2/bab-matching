@@ -11,10 +11,10 @@ import MyEdit from '../pages/my/MyEdit';
 import Room from '../pages/room/Room';
 import AddRoom from '../pages/addroom/AddRoom';
 import NotFound from '../pages/NotFound';
-import Layout from '../layout/layout'; // ✅ 대소문자 정확히 확인!
+import Layout from '../layout/layout'; // 
 
 const router = createBrowserRouter([
-  // ✅ 로그인/회원가입은 Layout 없이
+
   {
     path: '/',
     element: <Login />,
@@ -24,7 +24,6 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
 
-  // ✅ Layout이 적용되는 모든 경로
   {
     path: '/',
     element: <Layout />,
@@ -51,11 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'addroom',
-        element: <AddRoom />, // ✅ 이제 상단바 작동함
+        element: <AddRoom />, 
       },
       {
         path: 'room/:roomId',
-        element: <Room />, // ✅ 이제 상단바 작동함
+        element: <Room />, 
       },
     ],
   },
