@@ -1,22 +1,37 @@
 // src/layout/Layout.jsx
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import TopBar from "../components/TopBar/TopBar";
 import BottomNav from "../components/BottomNav/BottomNav";
+import "../components/TopBar/TopBar.css";
 import "../components/BottomNav/BottomNav.css";
 
 function Layout() {
   const location = useLocation();
 
-  // 하단바 제외할 경로
   const hideBottomNavRoutes = ["/addroom", "/room"];
+  const showTopBarRoutes = ["/addroom", "/room"];
 
-  // 현재 경로가 제외 대상인지 확인
   const shouldHideBottomNav = hideBottomNavRoutes.some((path) =>
     location.pathname.startsWith(path)
   );
 
+  const shouldShowTopBar = showTopBarRoutes.some((path) =>
+    location.pathname.startsWith(path)
+  );
+
   return (
-    <div className="layout-container">
+    <div
+      className="layout-container"
+      style={{
+        paddingTop: shouldShowTopBar ? "60px" : "0px",
+        paddingBottom: shouldHideBottomNav ? "0px" : "60px",
+        position: "relative",
+        minHeight: "100vh",
+        backgroundColor: "#fff",
+      }}
+    >
+      {shouldShowTopBar && <TopBar />}
       <Outlet />
       {!shouldHideBottomNav && <BottomNav />}
     </div>

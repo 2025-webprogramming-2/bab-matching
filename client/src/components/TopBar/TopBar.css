@@ -1,0 +1,43 @@
+.top-bar {
+  width: 375px;
+  height: 50px;
+  background-color: #fedbb5;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가운데 정렬 */
+  position: fixed;
+}
+
+.back-button {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-left {
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg);
+}
+
+.top-bar-title {
+  font-weight: bold;
+  font-size: 18px;
+  user-select: none;
+}
