@@ -136,13 +136,28 @@ userRouter.get('/:id', async (req, res) => {
 });
 
 // 사용자 정보 수정
-userRouter.put('/:id', async (req, res) => {
+userRouter.put('/me', async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const userId = req.session.user?.userId;
+    if (!userId) return res.status(401).json({ message: '로그인이 필요합니다.' });
+
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true });
+
+    // 세션 정보도 함께 업데이트
+    if (updatedUser) {
+      req.session.user = {
+        userId: updatedUser._id,
+        userLoginId: updatedUser.userLoginId,
+        username: updatedUser.username,
+        gender: updatedUser.gender,
+        major: updatedUser.major,
+        studentNumber: updatedUser.studentNumber,
+      };
+    }
+
     res.status(200).json(updatedUser);
   } catch (err) {
+    console.error('세션 사용자 정보 수정 실패:', err);
     res.status(500).json({ message: '업데이트 실패' });
   }
 });

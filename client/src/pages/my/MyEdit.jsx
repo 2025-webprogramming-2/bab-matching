@@ -1,10 +1,12 @@
 // MyEdit.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from './MyEdit.module.css';
+import { MajorList } from '../../constants/MajorList';
 
 function MyEdit() {
-  const userId = new URLSearchParams(useLocation().search).get('userId');
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: '',
     gender: '',
@@ -14,31 +16,81 @@ function MyEdit() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`http://localhost:4000/api/user/${userId}`);
+      const res = await axios.get(`http://localhost:4000/api/user/me`, {
+        withCredentials: true // 세션 쿠키 전송
+      });
       setForm(res.data);
     };
     fetchUser();
-  }, [userId]);
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSave = async () => {
-    await axios.put(`http://localhost:4000/api/user/${userId}`, form);
-    alert('수정 완료!');
+    try {
+      await axios.put('http://localhost:4000/api/user/me', form, {
+        withCredentials: true,
+      });
+      alert('수정 완료!');
+    } catch (err) {
+      console.error('handleSave 오류:', err);
+      alert('저장 실패: ' + (err.response?.data?.message || '서버 오류'));
+    }
+  };
+
+  function goToMy() {
+    navigate(`/my`);
   };
 
   return (
-    <div>
-      <h2>정보 수정</h2>
-      <input name="username" value={form.username} onChange={handleChange} placeholder="이름"/>
-      <input name="major" value={form.major} onChange={handleChange} placeholder="전공"/>
-      <input name="studentNumber" value={form.studentNumber} onChange={handleChange} placeholder="학번"/>
-      <select name="gender" value={form.gender} onChange={handleChange}>
-        <option value="">성별 선택</option>
-        <option value="남">남</option>
-        <option value="여">여</option>
-      </select>
-      <button onClick={handleSave}>저장</button>
+    <div className={styles.container}>
+      {/* Header */}
+      <div className={styles.header}>
+        <button className={styles.closeButton} onClick={goToMy}>✕</button>
+        <h2 className={styles.title}>프로필 수정</h2>
+        <button className={styles.saveButton} onClick={handleSave}>Save</button>
+      </div>
+
+      {/* Profile Photo */}
+      <div className={styles.imageWrapper}>
+        <img
+          src="/assets/DefaultProfile.png" // 실제 이미지 경로로 수정
+          alt="Profile"
+          className={styles.image}
+        />
+      </div>
+      <div className={styles.center}>
+        <button className={styles.editButton}>프로필 사진 수정</button>
+      </div>
+
+      {/* Input Fields */}
+      <div className={styles.formGroup}>
+        <label className={styles.label}>이름</label>
+        <input type="text" name="username" value={form.username} onChange={handleChange} placeholder="이름을 입력하세요" className={styles.input} />
+
+        <select
+          name="major"
+          onChange={handleChange}
+          className={styles.input}
+          value={form.major}
+        >
+          <option value="">단과대 선택</option>
+          {Object.entries(MajorList).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Preferences */}
+      <div className={styles.preferences}>
+        <h3 className={styles.prefTitle}>Preferences</h3>
+        <div className={styles.prefRow}>
+          <span>Interested in</span>
+          <span className={styles.prefValue}>Men</span>
+        </div>
+      </div>
     </div>
   );
 }
