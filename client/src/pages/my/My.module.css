@@ -73,13 +73,28 @@
     display: flex;
     justify-content: flex-end;
 }
-.title{
-    display: flex;
-    text-align: center;
-}
 
 .imageWrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.title {
+  /* flex 필요 없음 */
+  text-align: center;
 }

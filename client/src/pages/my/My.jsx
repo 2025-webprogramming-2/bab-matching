@@ -48,10 +48,13 @@ function My() {
 
   return (
     <div>
+      <div className={styles.header}>
+        <h1 className={styles.title}>프로필</h1>
+      </div>
       <div>
         <div className={styles.imageWrapper}>
           <img
-            src="profile-image.png" // 실제 이미지 경로로 수정
+            src={user?.profileImage || "/assets/DefaultProfile.png"} // 실제 이미지 경로로 수정
             alt="Profile"
             className={styles.image}
           />

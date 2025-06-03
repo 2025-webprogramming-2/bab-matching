@@ -10,6 +10,7 @@ const userSchema = new Schema({
   currentRoom: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
   historyRoom: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
   favorite: [{ type: mongoose.Schema.Types.ObjectId, ref: "Store" }],
+  profileImage: {type: String, default: '/images/default-profile.png'},
 });
 
 export default model("User", userSchema, "user");

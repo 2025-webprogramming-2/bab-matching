@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './MyEdit.module.css';
+import { MajorList } from '../../constants/MajorList';
 
 function MyEdit() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ function MyEdit() {
       {/* Profile Photo */}
       <div className={styles.imageWrapper}>
         <img
-          src="profile-image.png" // 실제 이미지 경로로 수정
+          src="/assets/DefaultProfile.png" // 실제 이미지 경로로 수정
           alt="Profile"
           className={styles.image}
         />
@@ -67,8 +68,19 @@ function MyEdit() {
         <label className={styles.label}>이름</label>
         <input type="text" name="username" value={form.username} onChange={handleChange} placeholder="이름을 입력하세요" className={styles.input} />
 
-        <label className={styles.label}>학부</label>
-        <input type="text" name="major" placeholder="학부를 입력하세요" value={form.major} onChange={handleChange} className={styles.input} />
+        <select
+          name="major"
+          onChange={handleChange}
+          className={styles.input}
+          value={form.major}
+        >
+          <option value="">단과대 선택</option>
+          {Object.entries(MajorList).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Preferences */}
