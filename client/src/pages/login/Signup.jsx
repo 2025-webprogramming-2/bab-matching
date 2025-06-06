@@ -38,11 +38,34 @@ function Signup() {
       <input name="userLoginPw" placeholder="비밀번호" type="password" onChange={handleChange} className={styles.input} />
       <input name="username" placeholder="이름" onChange={handleChange} className={styles.input} />
       
-      <select name="gender" onChange={handleChange} className={styles.input}>
-        <option value="">성별 선택</option>
-        <option value="남">남</option>
-        <option value="여">여</option>
-      </select>
+      {/* ▶︎ 성별 (토글 라디오) */}
+      <div className={styles.field}>
+        <div className={styles.genderGroup}>
+          {['남', '여'].map((g) => (
+            <label
+              key={g}
+              className={`${styles.genderOption} ${form.gender === g ? styles.checked : ''}`}
+            >
+              {/* 실제 라디오 input은 숨깁니다 */}
+              <input
+                type="radio"
+                name="gender"
+                value={g}
+                checked={form.gender === g}
+                onChange={handleChange}
+              />
+
+              {/* 왼쪽 텍스트 */}
+              <span className={styles.genderText}>{g}</span>
+
+              {/* 오른쪽 원형 표식 */}
+              <span className={styles.circle} />
+            </label>
+          ))}
+        </div>
+      </div>
+
+
 
       <select
         name="major"
