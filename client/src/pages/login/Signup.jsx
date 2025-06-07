@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from './Signup.module.css';
-import { MajorList } from '../../constants/MajorList'; // 추가
+import { MajorList } from '../../constants/MajorList';
 
 function Signup() {
   const navigate = useNavigate();
@@ -16,7 +16,15 @@ function Signup() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // 학번은 숫자만 허용, 최대 2자리
+    if (name === 'studentNumber') {
+      const cleaned = value.replace(/\D/g, '').slice(0, 2);
+      setForm({ ...form, [name]: cleaned });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSignup = async () => {
@@ -34,10 +42,26 @@ function Signup() {
     <div className={styles.container}>
       <h2 className={styles.title}>회원가입</h2>
 
-      <input name="userLoginId" placeholder="아이디" onChange={handleChange} className={styles.input} />
-      <input name="userLoginPw" placeholder="비밀번호" type="password" onChange={handleChange} className={styles.input} />
-      <input name="username" placeholder="이름" onChange={handleChange} className={styles.input} />
-      
+      <input
+        name="userLoginId"
+        placeholder="아이디"
+        onChange={handleChange}
+        className={styles.input}
+      />
+      <input
+        name="userLoginPw"
+        placeholder="비밀번호"
+        type="password"
+        onChange={handleChange}
+        className={styles.input}
+      />
+      <input
+        name="username"
+        placeholder="이름"
+        onChange={handleChange}
+        className={styles.input}
+      />
+
       {/* ▶︎ 성별 (토글 라디오) */}
       <div className={styles.field}>
         <div className={styles.genderGroup}>
@@ -46,7 +70,6 @@ function Signup() {
               key={g}
               className={`${styles.genderOption} ${form.gender === g ? styles.checked : ''}`}
             >
-              {/* 실제 라디오 input은 숨깁니다 */}
               <input
                 type="radio"
                 name="gender"
@@ -54,18 +77,12 @@ function Signup() {
                 checked={form.gender === g}
                 onChange={handleChange}
               />
-
-              {/* 왼쪽 텍스트 */}
               <span className={styles.genderText}>{g}</span>
-
-              {/* 오른쪽 원형 표식 */}
               <span className={styles.circle} />
             </label>
           ))}
         </div>
       </div>
-
-
 
       <select
         name="major"
@@ -80,7 +97,17 @@ function Signup() {
           </option>
         ))}
       </select>
-      <input name="studentNumber" placeholder="학번" type="number" onChange={handleChange} className={styles.input} />
+
+      <input
+        name="studentNumber"
+        placeholder="학번"
+        type="text"
+        inputMode="numeric"
+        pattern="\d*"
+        value={form.studentNumber}
+        onChange={handleChange}
+        className={`${styles.input} ${styles.studentNumberInput}`}
+      />
 
       <button className={styles.signupBtn} onClick={handleSignup}>
         회원가입 하기
