@@ -98,7 +98,13 @@ userRouter.post('/login', async (req, res) => {
 
     console.log('로그인 성공 - 세션에 저장된 사용자:', req.session.user);
 
-    res.status(200).json({ message: '로그인 성공' });
+    req.session.save((err) => {
+      if (err) {
+        console.error('세션 저장 실패:', err);
+        return res.status(500).json({ message: '세션 저장 실패' });
+      }
+      res.status(200).json({ message: '로그인 성공' });
+    });
   } catch (error) {
     console.error('로그인 오류:', error);
     res.status(500).json({ message: '서버 오류' });
