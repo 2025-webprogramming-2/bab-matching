@@ -65,7 +65,7 @@ function EnterModal({ roomId, onClose }) {
         </div>
 
         <div className={styles.benefitsContainer}>
-          <h3>혜택 정보</h3>
+          {/* <h3>혜택 정보</h3> */}
           <div className={styles.majorContanier}>
             <div className={styles.majorName} style={{ background: majorColor }}>
               {majorDisplayName}
