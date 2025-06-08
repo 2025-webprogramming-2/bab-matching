@@ -13,14 +13,11 @@ function Main() {
     <>
       <div className={styles.wrapper}>
         <div className={styles.bodyContainer}>
-          {/* <div className={styles.leftContainer}> */}
           <AddRoomBtn />
           <CurrentRoom />
-          {/* </div> */}
           <RoomList />
         </div>
       </div>
-      {/* <EnterModal /> */}
     </>
   );
 }

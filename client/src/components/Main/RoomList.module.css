@@ -12,8 +12,10 @@
   align-items: center;
   gap: 2rem;
   border-radius: 20px;
-  /* background-color: #fff; */
   /* background-color: red; */
+  overflow-y: auto;
+
+  height: 30rem;
   padding: 1rem;
   width: 100%;
 }
@@ -122,12 +124,14 @@
 }
 
 .btnContainer {
+  width: 80%;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
-.btnContainer > p {
+.btnContainer > div > p {
   padding: 0.5rem;
   border-radius: 10px;
   cursor: pointer;
@@ -141,4 +145,10 @@
 
 .btnDeactive {
   color: #a7a7a7;
+}
+
+.btnContainer > div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

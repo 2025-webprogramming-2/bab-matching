@@ -57,22 +57,31 @@ function CurrentRoom() {
 
   return (
     <>
-      {rooms.length === 0 ? (
-        <div className={styles.wrapper}>
-          <p>매칭된 방이 없습니다</p>
-        </div>
-      ) : (
-        rooms.map((room) => (
-          <div className={styles.wrapper} key={room._id} onClick={() => navigate(`/room/${room._id}`)}>
-            <div className={styles.body}>
-              <h1>{room.storeId?.name || '가게 이름 없음'}</h1>
-              <h2>
-                {room.time.start}:00 - {room.time.end}:00
-              </h2>
-            </div>
+      <h2 className={styles.title}>현재 매칭된 방</h2>
+      <div className={styles.wrap}>
+        {rooms.length === 0 ? (
+          <div className={styles.wrapper}>
+            <p>매칭된 방이 없습니다</p>
           </div>
-        ))
-      )}
+        ) : (
+          rooms.map((room) => (
+            <div className={styles.wrapper} key={room._id} onClick={() => navigate(`/room/${room._id}`)}>
+              <div className={styles.body}>
+                <h1>{room.storeId?.name || '가게 이름 없음'}</h1>
+                <div>
+                  <div className={styles.peopleContainer}>
+                    <img className={styles.peopleIcon} src="/assets/people.png" alt="사람 이미지" />
+                    <p>{room.currentCount}</p>
+                  </div>
+                  <h2>
+                    {room.time.start}:00 - {room.time.end}:00
+                  </h2>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </>
   );
 }

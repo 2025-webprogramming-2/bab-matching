@@ -71,6 +71,9 @@ function RoomList() {
   useEffect(() => {
     if (!loading) {
       fetchRooms();
+      const interval = setInterval(fetchRooms, 3000);
+
+      return () => clearInterval(interval);
     }
   }, [filterType, loading, userRooms]); // userRooms 바뀌면 재호출
 
@@ -96,70 +99,72 @@ function RoomList() {
   if (loading) return <div>유저 정보 불러오는 중...</div>;
 
   return (
-    <div className={styles.wrapper}>
-      <h2>실시간 매칭 방</h2>
-
+    <>
       <div className={styles.btnContainer}>
-        <p
-          className={filterType === 'all' ? styles.btnActive : styles.btnDeactive}
-          onClick={() => setFilterType('all')}
-        >
-          전체
-        </p>
-        |
-        <p
-          className={filterType === 'mine' ? styles.btnActive : styles.btnDeactive}
-          onClick={() => setFilterType('mine')}
-        >
-          내 조건만 보기
-        </p>
+        <h2>실시간 매칭 방</h2>
+        <div>
+          <p
+            className={filterType === 'all' ? styles.btnActive : styles.btnDeactive}
+            onClick={() => setFilterType('all')}
+          >
+            전체
+          </p>
+          |
+          <p
+            className={filterType === 'mine' ? styles.btnActive : styles.btnDeactive}
+            onClick={() => setFilterType('mine')}
+          >
+            내 조건만 보기
+          </p>
+        </div>
       </div>
-
-      <div className={styles.roomWrapper}>
-        {rooms.map((room) => (
-          <div className={styles.roomContainer} key={room._id} onClick={() => handleRoomClick(room)}>
-            <div className={styles.top}>
-              <h1>{room.storeId?.name}</h1>
-              <h2>
-                {room.time.start}:00 - {room.time.end}:00
-              </h2>
-            </div>
-
-            <div className={styles.bottom}>
-              <div className={styles.filter}>
-                {room.filter?.major && (
-                  <h1
-                    style={{
-                      background: MajorList[room.filter.major]?.color || '#000',
-                    }}
-                  >
-                    {MajorList[room.filter.major]?.name}
-                  </h1>
-                )}
-                {room.filter?.gender && (
-                  <h2
-                    style={{
-                      background: room.filter.gender === 'male' ? '#97BFFF' : undefined,
-                    }}
-                  >
-                    {room.filter.gender === 'male' ? '남자' : room.filter.gender === 'female' ? '여자' : ''}
-                  </h2>
-                )}
+      <div className={styles.wrapper}>
+        <div className={styles.roomWrapper}>
+          {rooms.map((room) => (
+            <div className={styles.roomContainer} key={room._id} onClick={() => handleRoomClick(room)}>
+              <div className={styles.top}>
+                <h1>{room.storeId?.name}</h1>
+                <h2>
+                  {room.time.start}:00 - {room.time.end}:00
+                </h2>
               </div>
-              |
-              <div className={styles.peopleContainer}>
-                <img className={styles.peopleIcon} src="/assets/people.png" alt="사람 이미지" />
-                <p>
-                  {room.currentUserId.length} / {room.maxCount}
-                </p>
+
+              <div className={styles.bottom}>
+                <div className={styles.filter}>
+                  {room.filter?.major && (
+                    <h1
+                      style={{
+                        background: MajorList[room.filter.major]?.color || '#000',
+                      }}
+                    >
+                      {MajorList[room.filter.major]?.name}
+                    </h1>
+                  )}
+                  {room.filter?.gender && (
+                    <h2
+                      style={{
+                        background: room.filter.gender === 'male' ? '#97BFFF' : undefined,
+                      }}
+                    >
+                      {room.filter.gender === 'male' ? '남자' : room.filter.gender === 'female' ? '여자' : ''}
+                    </h2>
+                  )}
+                </div>
+                |
+                <div className={styles.peopleContainer}>
+                  <img className={styles.peopleIcon} src="/assets/people.png" alt="사람 이미지" />
+                  <p>
+                    {room.currentCount} / {room.maxCount}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {modalOpen && selectedRoom && <EnterModal roomId={selectedRoom._id} onClose={() => setModalOpen(false)} />}
       </div>
-
-      {modalOpen && selectedRoom && <EnterModal roomId={selectedRoom._id} onClose={() => setModalOpen(false)} />}
-    </div>
+    </>
   );
 }
 
