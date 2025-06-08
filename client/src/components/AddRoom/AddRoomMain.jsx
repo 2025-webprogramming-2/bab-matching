@@ -88,7 +88,7 @@ function AddRoomMain({ store }) {
 
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/room/addRoom',
+        `${API_URL}/api/room/addRoom`,
         {
           currentUserId: [user.userId],
           storeId: selectedRestaurant,

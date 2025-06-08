@@ -10,11 +10,12 @@ import useUserStore from './store/useUserStore';
 
 function RootWrapper() {
   const { setUser, clearUser, setLoading } = useUserStore();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/api/user/me', {
+        const res = await axios.get(`${API_URL}api/user/me`, {
           withCredentials: true,
         });
         // console.log('[main.jsx] 유저 정보 가져옴:', res.data);

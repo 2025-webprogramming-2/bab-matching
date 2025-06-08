@@ -10,6 +10,7 @@ function StoreMajor() {
   const [stores, setStores] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const majorMap = {
     engineering: '공과대학',
@@ -19,7 +20,7 @@ function StoreMajor() {
     it: 'IT대학',
     social: '사회과학대학',
     law: '법과대학',
-    natsci: '자연과학대학'
+    natsci: '자연과학대학',
   };
 
   const collegeName = majorMap[collegeId];
@@ -28,8 +29,8 @@ function StoreMajor() {
   useEffect(() => {
     const fetchUserFavorites = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/api/user/favorites', {
-          withCredentials: true
+        const res = await axios.get(`${API_URL}/api/user/favorites`, {
+          withCredentials: true,
         });
         setFavorites(res.data.favorites);
       } catch (err) {
@@ -44,7 +45,7 @@ function StoreMajor() {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/store?college=${collegeName}`);
+        const res = await axios.get(`${API_URL}/api/store?college=${collegeName}`);
         setStores(res.data);
       } catch (err) {
         console.error('가게 불러오기 실패:', err);
@@ -57,11 +58,7 @@ function StoreMajor() {
   // 찜 토글
   const handleToggleFavorite = async (storeId) => {
     try {
-      const res = await axios.post(
-        'http://localhost:4000/api/user/toggleFavorite',
-        { storeId },
-        { withCredentials: true }
-      );
+      const res = await axios.post(`${API_URL}/api/user/toggleFavorite`, { storeId }, { withCredentials: true });
       setFavorites(res.data.favorites);
     } catch (err) {
       console.error('찜 토글 실패:', err);
@@ -92,7 +89,7 @@ function StoreMajor() {
           { label: '전체', value: 'all' },
           { label: '음식점', value: 'restaurant' },
           { label: '카페', value: 'cafe' },
-          { label: '술집', value: 'pub' }
+          { label: '술집', value: 'pub' },
         ].map((cat) => (
           <button
             key={cat.value}
