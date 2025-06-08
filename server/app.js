@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import connect from './connect.js';
 
@@ -19,21 +21,24 @@ const app = express();
 const port = process.env.PORT || 4000;
 const isProduction = process.env.NODE_ENV === 'production';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.set('trust proxy', 1);
 
-//CORS 설정 (가장 먼저 등록)
+// CORS 설정 (가장 먼저 등록)
 app.use(
   cors({
     origin: [
       'http://localhost:5173', // 개발 환경
       'https://bab-matching.vercel.app',
       'https://bab-matching.onrender.com', // 배포 환경
-    ], // Vite 개발 서버 주소
+    ],
     credentials: true, // 쿠키 주고받기 허용
   }),
 );
 
-//세션 설정
+// 세션 설정
 app.use(
   session({
     secret: 'mySecretKey', // 보통 .env에서 불러옴
@@ -48,16 +53,24 @@ app.use(
   }),
 );
 
-//본문 파싱
+// 본문 파싱
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-//라우터 연결
+// **정적 파일 서빙 (프론트 빌드 폴더 위치 맞게 수정)**
+app.use(express.static(path.join(__dirname, 'client/dist')));
+
+// 라우터 연결
 app.use('/api/', rootRouter);
 app.use('/api/user', userRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/store', storeRouter);
 app.use('/api/major', majorRouter);
+
+// SPA 라우팅: 위 API 외 모든 요청은 프론트 index.html 반환
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+});
 
 // 서버 실행
 app.listen(port, () => {
