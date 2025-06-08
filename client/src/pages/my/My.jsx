@@ -45,6 +45,9 @@ function My() {
     navigate(`/my/edit`);
   };
 
+  const goTohistory = () => {
+    navigate(`/my/history`);
+  };
 
   return (
     <div>
@@ -76,7 +79,7 @@ function My() {
       <div className={styles.container} onClick={goToEdit}>
         <div className={styles.containerText}>프로필 수정</div>
       </div>
-      <div className={styles.container}>
+      <div className={styles.container} onClick={goTohistory}>
         <div className={styles.containerText}>매칭 기록</div>
       </div>
       <div className={styles.logoutButton}> 

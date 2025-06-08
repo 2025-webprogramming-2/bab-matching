@@ -45,6 +45,10 @@ const router = createBrowserRouter([
         element: <My />,
       },
       {
+        path: 'my/history',
+        element: <MyRoomHistory />,
+      },
+      {
         path: 'my/edit',
         element: <MyEdit />,
       },
