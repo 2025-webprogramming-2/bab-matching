@@ -61,7 +61,7 @@ app.use('/api/major', majorRouter);
 
 // 서버 실행
 app.listen(port, () => {
-  console.log(`서버 실행 중: http://localhost:${port}`);
+  console.log(`서버 실행 중: http://localhost:${port} (배포용: ${process.env.BASE_URL || '없음'})`);
 });
 
 app.get('/', (req, res) => {

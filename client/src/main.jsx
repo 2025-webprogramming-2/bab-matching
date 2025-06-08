@@ -15,7 +15,7 @@ function RootWrapper() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await axios.get(`${API_URL}api/user/me`, {
+        const res = await axios.get(`${API_URL}/api/user/me`, {
           withCredentials: true,
         });
         // console.log('[main.jsx] 유저 정보 가져옴:', res.data);
