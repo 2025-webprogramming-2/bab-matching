@@ -5,11 +5,12 @@
 
 .bodyContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: flex-start;
-  /* background-color: red; */
   margin-top: 8rem;
+  padding-bottom: 8rem;
 }
 
 .leftContainer {
