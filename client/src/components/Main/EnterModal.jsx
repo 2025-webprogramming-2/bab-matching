@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MajorList } from '../../constants/MajorList';
 import { MajorNameToKey } from '../../constants/MajorNameToKey';
+import { useNavigate } from 'react-router-dom';
+
 import styles from './EnterModal.module.css';
 
 function EnterModal({ roomId, onClose }) {
   const [roomData, setRoomData] = useState(null);
+  const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchRoomDetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/room/${roomId}`, {
+        const res = await axios.get(`${API_URL}/api/room/${roomId}`, {
           withCredentials: true,
         });
         setRoomData(res.data);
@@ -26,15 +30,16 @@ function EnterModal({ roomId, onClose }) {
   const handleEnter = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/api/user/enterRoom',
+        `${API_URL}/api/user/enterRoom`,
         {
           roomId,
         },
         { withCredentials: true },
       );
 
-      alert('입장 처리 완료!');
+      alert('매칭 빙에 입장했습니다!');
       onClose();
+      navigate(`/room/${roomId}`);
     } catch (err) {
       console.error('입장 실패:', err);
       alert('입장에 실패했습니다.');

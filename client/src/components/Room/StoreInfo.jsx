@@ -7,11 +7,12 @@ import styles from './StoreInfo.module.css';
 
 function StoreInfo({ roomId }) {
   const [roomData, setRoomData] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/room/${roomId}`, {
+        const res = await axios.get(`${API_URL}/api/room/${roomId}`, {
           withCredentials: true,
         });
         setRoomData(res.data);

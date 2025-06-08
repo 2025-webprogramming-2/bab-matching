@@ -6,6 +6,8 @@ import { MajorList } from '../../constants/MajorList';
 
 function Signup() {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [form, setForm] = useState({
     userLoginId: '',
     userLoginPw: '',
@@ -29,7 +31,7 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/user/signup', form);
+      const response = await axios.post(`${API_URL}/api/user/signup`, form);
       const userId = response.data.userId;
       alert('회원가입 성공!');
       navigate(`/`);
@@ -42,12 +44,7 @@ function Signup() {
     <div className={styles.container}>
       <h2 className={styles.title}>회원가입</h2>
 
-      <input
-        name="userLoginId"
-        placeholder="아이디"
-        onChange={handleChange}
-        className={styles.input}
-      />
+      <input name="userLoginId" placeholder="아이디" onChange={handleChange} className={styles.input} />
       <input
         name="userLoginPw"
         placeholder="비밀번호"
@@ -55,28 +52,14 @@ function Signup() {
         onChange={handleChange}
         className={styles.input}
       />
-      <input
-        name="username"
-        placeholder="이름"
-        onChange={handleChange}
-        className={styles.input}
-      />
+      <input name="username" placeholder="이름" onChange={handleChange} className={styles.input} />
 
       {/* ▶︎ 성별 (토글 라디오) */}
       <div className={styles.field}>
         <div className={styles.genderGroup}>
           {['남', '여'].map((g) => (
-            <label
-              key={g}
-              className={`${styles.genderOption} ${form.gender === g ? styles.checked : ''}`}
-            >
-              <input
-                type="radio"
-                name="gender"
-                value={g}
-                checked={form.gender === g}
-                onChange={handleChange}
-              />
+            <label key={g} className={`${styles.genderOption} ${form.gender === g ? styles.checked : ''}`}>
+              <input type="radio" name="gender" value={g} checked={form.gender === g} onChange={handleChange} />
               <span className={styles.genderText}>{g}</span>
               <span className={styles.circle} />
             </label>
@@ -84,12 +67,7 @@ function Signup() {
         </div>
       </div>
 
-      <select
-        name="major"
-        onChange={handleChange}
-        className={styles.input}
-        value={form.major}
-      >
+      <select name="major" onChange={handleChange} className={styles.input} value={form.major}>
         <option value="">단과대 선택</option>
         {Object.entries(MajorList).map(([key, value]) => (
           <option key={key} value={key}>

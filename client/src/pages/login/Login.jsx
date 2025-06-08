@@ -6,6 +6,7 @@ import useUserStore from '../../store/useUserStore';
 
 function Login() {
   const navigate = useNavigate(); // 페이지 이동 도구
+  const API_URL = import.meta.env.VITE_API_URL;
 
   //입력창에서 유저가 입력한 ID와 PW를 저장
   //userLoginId: 아이디 입력값을 저장
@@ -19,7 +20,7 @@ function Login() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        await axios.get('http://localhost:4000/api/user/me', {
+        await axios.get(`${API_URL}/api/user/me`, {
           withCredentials: true,
         });
         navigate('/main');
@@ -32,7 +33,7 @@ function Login() {
   const handleLogin = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/api/user/login',
+        `${API_URL}/api/user/login`,
         {
           userLoginId,
           userLoginPw,
@@ -42,7 +43,7 @@ function Login() {
         },
       );
       // 로그인 성공 후 유저 정보 불러오기
-      const res = await axios.get('http://localhost:4000/api/user/me', {
+      const res = await axios.get(`${API_URL}/api/user/me`, {
         withCredentials: true,
       });
 
@@ -61,7 +62,7 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.logoText}>밥친구</div>
+      <img className={styles.logoIcon} src="/assets/logo.png" alt="로고" />
 
       {/* 입력값 상태 연결 */}
       <input

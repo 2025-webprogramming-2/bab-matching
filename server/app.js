@@ -19,23 +19,30 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 //CORS 설정 (가장 먼저 등록)
-app.use(cors({
-  origin: 'http://localhost:5173', // Vite 개발 서버 주소
-  credentials: true                // 쿠키 주고받기 허용
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173', // 개발 환경
+      'https://your-vercel-frontend.vercel.app', // 배포 환경
+    ], // Vite 개발 서버 주소
+    credentials: true, // 쿠키 주고받기 허용
+  }),
+);
 
 //세션 설정
-app.use(session({
-  secret: 'mySecretKey', // 보통 .env에서 불러옴
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false,        // 개발 환경에서는 false (HTTPS일 땐 true)
-    httpOnly: true,
-    sameSite: 'lax',      // 또는 'none' (secure: true와 함께)
-    maxAge: 1000 * 60 * 60 * 2 // 2시간
-  }
-}));
+app.use(
+  session({
+    secret: 'mySecretKey', // 보통 .env에서 불러옴
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false, // 개발 환경에서는 false (HTTPS일 땐 true)
+      httpOnly: true,
+      sameSite: 'lax', // 또는 'none' (secure: true와 함께)
+      maxAge: 1000 * 60 * 60 * 2, // 2시간
+    },
+  }),
+);
 
 //본문 파싱
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,4 +58,8 @@ app.use('/api/major', majorRouter);
 // 서버 실행
 app.listen(port, () => {
   console.log(`서버 실행 중: http://localhost:${port}`);
+});
+
+app.get('/', (req, res) => {
+  res.send('서버가 정상 작동 중입니다.');
 });
