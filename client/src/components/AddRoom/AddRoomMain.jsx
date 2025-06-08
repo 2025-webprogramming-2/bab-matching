@@ -18,16 +18,16 @@ function AddRoomMain({ store }) {
   const navigate = useNavigate();
   const { user, loading } = useUserStore();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   //  store에서 값이 넘어오면 자동 입력
   useEffect(() => {
     if (store) {
-      const matchedMajorKey = Object.entries(MajorList).find(
-        ([key, value]) => value.name === store.college
-      )?.[0];
+      const matchedMajorKey = Object.entries(MajorList).find(([key, value]) => value.name === store.college)?.[0];
 
       if (matchedMajorKey) {
-        setCollegeMajor(matchedMajorKey);          // 드롭다운에서 key값 (예: 'engineering')
-        setSelectedRestaurant(store._id);          // 식당 id
+        setCollegeMajor(matchedMajorKey); // 드롭다운에서 key값 (예: 'engineering')
+        setSelectedRestaurant(store._id); // 식당 id
       }
     }
   }, [store]);
@@ -39,7 +39,7 @@ function AddRoomMain({ store }) {
 
       try {
         const collegeName = MajorList[collegeMajor]?.name;
-        const res = await axios.get(`http://localhost:4000/api/store?college=${collegeName}`);
+        const res = await axios.get(`${API_URL}/api/store?college=${collegeName}`);
         setRestaurantList(res.data);
       } catch (error) {
         console.error('식당 불러오기 실패:', error);

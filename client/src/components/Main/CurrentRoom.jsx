@@ -10,6 +10,8 @@ function CurrentRoom() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     if (!user || !user.userId) return; // user가 없으면 아예 실행 안함
 
@@ -17,7 +19,7 @@ function CurrentRoom() {
       try {
         console.log('🔍 userId:', user.userId);
 
-        const res = await axios.get(`http://localhost:4000/api/user/me/${user.userId}`, {
+        const res = await axios.get(`${API_URL}/api/user/me/${user.userId}`, {
           withCredentials: true,
         });
         console.log('유저 정보 불러옴:', res.data);
@@ -29,7 +31,7 @@ function CurrentRoom() {
           setRooms([]);
         } else {
           const roomRes = await axios.post(
-            `http://localhost:4000/api/room/multipleRoom`,
+            `${API_URL}/api/room/multipleRoom`,
             {
               roomIds: userData.currentRoom,
             },

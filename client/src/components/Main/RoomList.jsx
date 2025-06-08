@@ -14,11 +14,13 @@ function RoomList() {
 
   const { user, loading } = useUserStore();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   // 유저가 들어간 방 리스트 받아오기
   useEffect(() => {
     if (!loading && user) {
       axios
-        .get(`http://localhost:4000/api/user/${user.userId}/rooms`, { withCredentials: true })
+        .get(`${API_URL}/api/user/${user.userId}/rooms`, { withCredentials: true })
         .then((res) => {
           setUserRooms(res.data.currentRooms || []);
         })
@@ -31,7 +33,7 @@ function RoomList() {
 
   const fetchRooms = async () => {
     try {
-      const res = await axios.get('http://localhost:4000/api/room/roomList', {
+      const res = await axios.get(`${API_URL}/api/room/roomList`, {
         withCredentials: true,
       });
 

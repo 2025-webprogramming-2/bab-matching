@@ -8,11 +8,12 @@ function Chat({ roomId }) {
   const { user } = useUserStore();
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState('');
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // 채팅 불러오기
   const fetchChats = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/room/${roomId}/chat`, {
+      const res = await axios.get(`${API_URL}/api/room/${roomId}/chat`, {
         withCredentials: true,
       });
       setChats(res.data);
@@ -33,7 +34,7 @@ function Chat({ roomId }) {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/room/${roomId}/chat`,
+        `${API_URL}/api/room/${roomId}/chat`,
         {
           content: newChat,
           creatorId: user.userId,
