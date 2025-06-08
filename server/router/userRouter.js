@@ -1,5 +1,6 @@
 import express from 'express';
 import User from '../models/user_schema.js';
+import Room from '../models/room_schema.js';
 
 const userRouter = express.Router();
 
@@ -159,6 +160,63 @@ userRouter.put('/me', async (req, res) => {
   } catch (err) {
     console.error('세션 사용자 정보 수정 실패:', err);
     res.status(500).json({ message: '업데이트 실패' });
+  }
+});
+
+// 방 입장
+userRouter.post('/enterRoom', async (req, res) => {
+  try {
+    const userId = req.session.user?.userId;
+    if (!userId) return res.status(401).json({ message: '로그인이 필요합니다.' });
+
+    const { roomId } = req.body;
+    if (!roomId) return res.status(400).json({ message: 'roomId가 필요합니다.' });
+
+    const room = await Room.findById(roomId);
+    if (!room) return res.status(404).json({ message: '해당 방이 존재하지 않습니다.' });
+
+    let roomModified = false;
+
+    // 중복 방지
+    if (!room.currentUserId.includes(userId)) {
+      room.currentUserId.push(userId);
+      room.currentCount += 1;
+      roomModified = true;
+    }
+
+    // maxCount와 같으면 isFilled를 true로 설정
+    if (room.currentCount >= room.maxCount) {
+      room.isFilled = true;
+    }
+
+    if (roomModified) {
+      await room.save();
+    }
+
+    const user = await User.findById(userId);
+    if (!user.currentRoom.includes(roomId)) {
+      user.currentRoom.push(roomId);
+      await user.save();
+    }
+
+    res.status(200).json({ message: '방 입장 성공', roomId });
+  } catch (err) {
+    console.error('방 입장 실패:', err);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
+// 방 목록 - 이미 입장한 방 제외
+userRouter.get('/:userId/rooms', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select('currentRoom');
+    if (!user) return res.status(404).json({ message: '유저 없음' });
+
+    const currentRooms = user.currentRoom.map((roomId) => roomId.toString());
+    res.json({ currentRooms });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: '서버 오류' });
   }
 });
 

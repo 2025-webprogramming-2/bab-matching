@@ -48,6 +48,9 @@ function CurrentRoom() {
     };
 
     fetchUserRooms();
+    const interval = setInterval(fetchUserRooms, 3000);
+
+    return () => clearInterval(interval);
   }, [user?.userId]);
 
   if (loading) return <div>불러오는 중...</div>;

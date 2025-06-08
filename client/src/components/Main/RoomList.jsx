@@ -2,13 +2,32 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MajorList } from '../../constants/MajorList';
 import useUserStore from '../../store/useUserStore';
+import EnterModal from './EnterModal';
 import styles from './RoomList.module.css';
 
 function RoomList() {
   const [rooms, setRooms] = useState([]);
   const [filterType, setFilterType] = useState('all');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [userRooms, setUserRooms] = useState([]); // 유저가 들어가 있는 방 ID 리스트
 
   const { user, loading } = useUserStore();
+
+  // 유저가 들어간 방 리스트 받아오기
+  useEffect(() => {
+    if (!loading && user) {
+      axios
+        .get(`http://localhost:4000/api/user/${user.userId}/rooms`, { withCredentials: true })
+        .then((res) => {
+          setUserRooms(res.data.currentRooms || []);
+        })
+        .catch((err) => {
+          console.error('유저 방 목록 불러오기 실패:', err);
+          setUserRooms([]); // 실패 시 빈 배열
+        });
+    }
+  }, [user, loading]);
 
   const fetchRooms = async () => {
     try {
@@ -24,10 +43,16 @@ function RoomList() {
         const createdDate = new Date(room.createdAt).toISOString().slice(0, 10);
         const isToday = createdDate === todayStr;
         const isBeforeEndTime = room.time.end > currentHour;
+
         return isToday && isBeforeEndTime;
       });
 
-      // 내 조건 필터링
+      // 유저가 들어가 있는 방 제외
+      if (userRooms.length > 0) {
+        filteredRooms = filteredRooms.filter((room) => !userRooms.includes(room._id.toString()));
+      }
+
+      // '내 조건만 보기' 필터 적용
       if (filterType === 'mine' && user) {
         const convertedGender = user.gender === '남' ? 'male' : 'female';
         filteredRooms = filteredRooms.filter((room) => {
@@ -47,7 +72,26 @@ function RoomList() {
     if (!loading) {
       fetchRooms();
     }
-  }, [filterType, loading]);
+  }, [filterType, loading, userRooms]); // userRooms 바뀌면 재호출
+
+  const checkRoomEligibility = (room) => {
+    if (!user) return false;
+
+    const convertedGender = user.gender === '남' ? 'male' : 'female';
+    const matchMajor = !room.filter?.major || room.filter.major === user.major;
+    const matchGender = !room.filter?.gender || room.filter.gender === convertedGender;
+
+    return matchMajor && matchGender;
+  };
+
+  const handleRoomClick = (room) => {
+    if (checkRoomEligibility(room)) {
+      setSelectedRoom(room);
+      setModalOpen(true);
+    } else {
+      alert('입장할 수 없는 방입니다.');
+    }
+  };
 
   if (loading) return <div>유저 정보 불러오는 중...</div>;
 
@@ -73,7 +117,7 @@ function RoomList() {
 
       <div className={styles.roomWrapper}>
         {rooms.map((room) => (
-          <div className={styles.roomContainer} key={room._id}>
+          <div className={styles.roomContainer} key={room._id} onClick={() => handleRoomClick(room)}>
             <div className={styles.top}>
               <h1>{room.storeId?.name}</h1>
               <h2>
@@ -113,6 +157,8 @@ function RoomList() {
           </div>
         ))}
       </div>
+
+      {modalOpen && selectedRoom && <EnterModal roomId={selectedRoom._id} onClose={() => setModalOpen(false)} />}
     </div>
   );
 }
