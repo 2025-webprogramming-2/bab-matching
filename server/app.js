@@ -41,6 +41,7 @@ app.use(
 // 세션 설정
 app.use(
   session({
+    secret: process.env.SESSION_SECRET || 'mySecretKey',
     resave: false,
     saveUninitialized: false,
     cookie: {
