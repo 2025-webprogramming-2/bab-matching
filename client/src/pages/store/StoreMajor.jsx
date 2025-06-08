@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './StoreMajor.module.css';
 
 function StoreMajor() {
   const { collegeId } = useParams();
+  const navigate = useNavigate();
+
   const [stores, setStores] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -22,14 +24,14 @@ function StoreMajor() {
 
   const collegeName = majorMap[collegeId];
 
-  // ✅ 찜한 가게 불러오기
+  // 찜 목록 불러오기
   useEffect(() => {
     const fetchUserFavorites = async () => {
       try {
         const res = await axios.get('http://localhost:4000/api/user/favorites', {
-          withCredentials: true // 쿠키 인증이 필요한 경우
+          withCredentials: true
         });
-        setFavorites(res.data.favorites); // 서버에서 받은 찜 가게 ID 배열
+        setFavorites(res.data.favorites);
       } catch (err) {
         console.error('찜 목록 불러오기 실패:', err);
       }
@@ -38,7 +40,7 @@ function StoreMajor() {
     fetchUserFavorites();
   }, []);
 
-  // ✅ 가게 목록 불러오기
+  // 가게 목록 불러오기
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -52,20 +54,26 @@ function StoreMajor() {
     fetchStores();
   }, [collegeName]);
 
-  // ⭐ 찜 토글 함수 (아직 서버 연동은 안 된 상태)
-const handleToggleFavorite = async (storeId) => {
-  try {
-    const res = await axios.post(
-      'http://localhost:4000/api/user/toggleFavorite',
-      { storeId },
-      { withCredentials: true } // 세션 인증 필요 시
-    );
-    setFavorites(res.data.favorites); // 서버에서 받은 최신 찜 리스트로 상태 갱신
-  } catch (err) {
-    console.error('찜 토글 실패:', err);
-  }
-};
-  // ⭐ 찜 순서 정렬 + 카테고리 필터 적용
+  // 찜 토글
+  const handleToggleFavorite = async (storeId) => {
+    try {
+      const res = await axios.post(
+        'http://localhost:4000/api/user/toggleFavorite',
+        { storeId },
+        { withCredentials: true }
+      );
+      setFavorites(res.data.favorites);
+    } catch (err) {
+      console.error('찜 토글 실패:', err);
+    }
+  };
+
+  //  가게 클릭 시 AddRoom 페이지로 이동 (store 정보 함께 전달)
+  const handleStoreClick = (store) => {
+    navigate('/addroom', { state: { store } });
+  };
+
+  // 필터 + 찜 우선 정렬
   const filteredStores = stores
     .filter((store) => selectedCategory === 'all' || store.type === selectedCategory)
     .sort((a, b) => {
@@ -96,19 +104,26 @@ const handleToggleFavorite = async (storeId) => {
         ))}
       </div>
 
-      {/* 가게 리스트 */}
+      {/* 가게 카드 리스트 */}
       {filteredStores.length === 0 ? (
         <p className={styles.emptyMessage}>제휴 가게가 없습니다.</p>
       ) : (
-        filteredStores.map((store, index) => (
-          <div className={styles.card} key={store._id}>
+        filteredStores.map((store) => (
+          <div
+            className={styles.card}
+            key={store._id}
+            onClick={() => handleStoreClick(store)} // 가게 클릭 시 이동
+          >
             <img src={store.img} alt={store.name} className={styles.image} />
             <div className={styles.info}>
               <div className={styles.headerRow}>
                 <h2 className={styles.name}>{store.name}</h2>
                 <span
                   className={`${styles.star} ${favorites.includes(store._id) ? styles.filled : ''}`}
-                  onClick={() => handleToggleFavorite(store._id)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 찜 클릭 시 카드 클릭 방지
+                    handleToggleFavorite(store._id);
+                  }}
                 >
                   ★
                 </span>
