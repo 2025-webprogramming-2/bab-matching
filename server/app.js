@@ -41,7 +41,6 @@ app.use(
 // 세션 설정
 app.use(
   session({
-    secret: 'mySecretKey', // 보통 .env에서 불러옴
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -57,7 +56,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-// **정적 파일 서빙 (프론트 빌드 폴더 위치 맞게 수정)**
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // 라우터 연결
