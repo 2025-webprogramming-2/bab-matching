@@ -23,7 +23,7 @@
 .commentsArea {
   display: flex;
   flex-direction: column;
-  max-height: 50rem;
+  height: 50rem;
   overflow-y: auto;
   scroll-behavior: smooth;
   padding-right: 1rem;
@@ -153,8 +153,8 @@
 
 .submitBtn {
   display: flex;
-  height: 4rem;
-  padding: 1.4244rem;
+  height: 3.5rem;
+  /* padding: 1.4244rem; */
   justify-content: center;
   align-items: center;
   gap: 1.0175rem;
@@ -196,4 +196,8 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
+}
+
+.sentIcon {
+  width: 2.5rem;
 }

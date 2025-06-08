@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './Chat.module.css';
 import useUserStore from '../../store/useUserStore';
+import { MajorList } from '../../constants/MajorList';
 
 function Chat({ roomId }) {
   const { user } = useUserStore();
@@ -67,7 +68,7 @@ function Chat({ roomId }) {
                 <div className={styles.commentHeader}>
                   <div className={styles.authorGroup}>
                     <span className={styles.author}>{chat.creatorId?.username || '익명'}</span>
-                    <span className={styles.creatorYear}>{chat.creatorId?.major || '-'}</span>
+                    <span className={styles.creatorYear}> {MajorList[chat.creatorId?.major]?.name || '-'}</span>
                   </div>
                   <div className={styles.commentActions}>
                     <span className={styles.date}> {formatChatDate(chat.createdAt)}</span>
@@ -96,7 +97,9 @@ function Chat({ roomId }) {
               onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
             />
           </div>
-          <button className={styles.submitBtn} type="button" onClick={handleSendChat}></button>
+          <button className={styles.submitBtn} type="button" onClick={handleSendChat}>
+            <img className={styles.sentIcon} src="/assets/sent.png" alt="전송 이미지" />
+          </button>
         </div>
       </div>
     </div>

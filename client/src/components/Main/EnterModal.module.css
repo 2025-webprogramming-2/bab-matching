@@ -47,7 +47,7 @@
 }
 
 .currentWrapper {
-  width: 15rem;
+  width: 80%;
   height: 3.5rem;
 
   border-radius: 20px;
@@ -70,11 +70,13 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  white-space: nowrap;
 }
 .majorContanier {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .majorName {
