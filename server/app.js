@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173', // 개발 환경
-      'https://bab-matching.vercel.app/', // 배포 환경
+      'https://bab-matching.vercel.app', // 배포 환경
     ], // Vite 개발 서버 주소
     credentials: true, // 쿠키 주고받기 허용
   }),
@@ -36,9 +36,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // 개발 환경에서는 false (HTTPS일 땐 true)
+      secure: true, // 개발 환경에서는 false (HTTPS일 땐 true)
       httpOnly: true,
-      sameSite: 'lax', // 또는 'none' (secure: true와 함께)
+      sameSite: 'none', // 또는 'none' (secure: true와 함께)
       maxAge: 1000 * 60 * 60 * 2, // 2시간
     },
   }),
