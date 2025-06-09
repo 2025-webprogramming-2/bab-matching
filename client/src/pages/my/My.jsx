@@ -9,12 +9,13 @@ function My() {
   const userId = new URLSearchParams(useLocation().search).get('userId');
 
   const [user, setUser] = useState(null);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // 유저 정보 불러오기
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/user/me`, {
+        const res = await axios.get(`${API_URL}/api/user/me`, {
           withCredentials: true, //세션 쿠키 전송
         });
         setUser(res.data);
@@ -29,15 +30,15 @@ function My() {
   const LogOut = async () => {
     try {
       await axios.post(
-        'http://localhost:4000/api/user/logout',
+        `${API_URL}/api/user/logout`,
         {},
         {
-          withCredentials: true
-        }
+          withCredentials: true,
+        },
       );
       navigate('/');
     } catch (err) {
-      alert('로그아웃 실패' +(err.response?.data?.message || err.message));
+      alert('로그아웃 실패' + (err.response?.data?.message || err.message));
     }
   };
 
@@ -57,16 +58,18 @@ function My() {
       <div>
         <div className={styles.imageWrapper}>
           <img
-            src={user?.profileImage || "/assets/숭늉마.png"} // 실제 이미지 경로로 수정
+            src={user?.profileImage || '/assets/숭늉마.png'} // 실제 이미지 경로로 수정
             alt="Profile"
             className={styles.image}
           />
-        </div>        
+        </div>
         <div>
           {user ? (
             <>
               <div className={styles.userName}>{user.username}</div>
-              <div className={styles.userInfo}>{user.studentNumber}학번, {user.major}</div>
+              <div className={styles.userInfo}>
+                {user.studentNumber}학번, {user.major}
+              </div>
             </>
           ) : (
             <p>로딩 중...</p>
@@ -82,10 +85,8 @@ function My() {
       <div className={styles.container} onClick={goTohistory}>
         <div className={styles.containerText}>매칭 기록</div>
       </div>
-      <div className={styles.logoutButton}> 
-      <button onClick={LogOut}>
-        로그아웃
-      </button>
+      <div className={styles.logoutButton}>
+        <button onClick={LogOut}>로그아웃</button>
       </div>
     </div>
   );

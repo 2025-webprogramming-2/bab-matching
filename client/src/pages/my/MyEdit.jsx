@@ -7,6 +7,8 @@ import { MajorList } from '../../constants/MajorList';
 
 function MyEdit() {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [form, setForm] = useState({
     username: '',
     gender: '',
@@ -16,8 +18,8 @@ function MyEdit() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`http://localhost:4000/api/user/me`, {
-        withCredentials: true // 세션 쿠키 전송
+      const res = await axios.get(`${API_URL}/api/user/me`, {
+        withCredentials: true, // 세션 쿠키 전송
       });
       setForm(res.data);
     };
@@ -28,7 +30,7 @@ function MyEdit() {
 
   const handleSave = async () => {
     try {
-      await axios.put('http://localhost:4000/api/user/me', form, {
+      await axios.put(`${API_URL}/api/user/me`, form, {
         withCredentials: true,
       });
       alert('수정 완료!');
@@ -40,15 +42,19 @@ function MyEdit() {
 
   function goToMy() {
     navigate(`/my`);
-  };
+  }
 
   return (
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
-        <button className={styles.closeButton} onClick={goToMy}>✕</button>
+        <button className={styles.closeButton} onClick={goToMy}>
+          ✕
+        </button>
         <h2 className={styles.title}>프로필 수정</h2>
-        <button className={styles.saveButton} onClick={handleSave}>Save</button>
+        <button className={styles.saveButton} onClick={handleSave}>
+          Save
+        </button>
       </div>
 
       {/* Profile Photo */}
@@ -59,20 +65,21 @@ function MyEdit() {
           className={styles.image}
         />
       </div>
-      <div className={styles.center}>
-      </div>
+      <div className={styles.center}></div>
 
       {/* Input Fields */}
       <div className={styles.formGroup}>
         <label className={styles.label}>이름</label>
-        <input type="text" name="username" value={form.username} onChange={handleChange} placeholder="이름을 입력하세요" className={styles.input} />
-
-        <select
-          name="major"
+        <input
+          type="text"
+          name="username"
+          value={form.username}
           onChange={handleChange}
+          placeholder="이름을 입력하세요"
           className={styles.input}
-          value={form.major}
-        >
+        />
+
+        <select name="major" onChange={handleChange} className={styles.input} value={form.major}>
           <option value="">단과대 선택</option>
           {Object.entries(MajorList).map(([key, value]) => (
             <option key={key} value={key}>
@@ -81,7 +88,6 @@ function MyEdit() {
           ))}
         </select>
       </div>
-
     </div>
   );
 }
