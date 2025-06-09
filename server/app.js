@@ -66,11 +66,6 @@ app.use('/api/room', roomRouter);
 app.use('/api/store', storeRouter);
 // app.use('/api/major', majorRouter);
 
-// SPA 라우팅: 위 API 외 모든 요청은 프론트 index.html 반환
-app.get('/{*any}', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
-});
-
 // 서버 실행
 app.listen(port, () => {
   console.log(`서버 실행 중: http://localhost:${port}`);
