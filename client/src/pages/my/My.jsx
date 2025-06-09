@@ -57,7 +57,7 @@ function My() {
       <div>
         <div className={styles.imageWrapper}>
           <img
-            src={user?.profileImage || "/assets/DefaultProfile.png"} // 실제 이미지 경로로 수정
+            src={user?.profileImage || "/assets/숭늉마.png"} // 실제 이미지 경로로 수정
             alt="Profile"
             className={styles.image}
           />

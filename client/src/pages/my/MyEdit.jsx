@@ -54,13 +54,12 @@ function MyEdit() {
       {/* Profile Photo */}
       <div className={styles.imageWrapper}>
         <img
-          src="/assets/DefaultProfile.png" // 실제 이미지 경로로 수정
+          src="/assets/숭늉마.png" // 실제 이미지 경로로 수정
           alt="Profile"
           className={styles.image}
         />
       </div>
       <div className={styles.center}>
-        <button className={styles.editButton}>프로필 사진 수정</button>
       </div>
 
       {/* Input Fields */}
@@ -83,14 +82,6 @@ function MyEdit() {
         </select>
       </div>
 
-      {/* Preferences */}
-      <div className={styles.preferences}>
-        <h3 className={styles.prefTitle}>Preferences</h3>
-        <div className={styles.prefRow}>
-          <span>Interested in</span>
-          <span className={styles.prefValue}>Men</span>
-        </div>
-      </div>
     </div>
   );
 }
