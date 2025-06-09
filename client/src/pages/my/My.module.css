@@ -10,7 +10,7 @@
     /* justify-content: space-between; */
     align-items: center;
     /* align-self: stretch; */
-    color:#9C784A;
+    color:#e78f57;
     font-size:medium;
     min-height: 30px;
 }
@@ -21,7 +21,8 @@
     /* justify-content: space-between; */
     align-items: center;
     /* align-self: stretch; */
-    color:#000000;
+    color:#d7814b;
+    font-weight: bold;
     font-size:medium
 }
 .container{
@@ -42,7 +43,7 @@
 
 .containerText{
     overflow: hidden;
-    color: #1C140D;
+    color: #4f301c;
     font-feature-settings: 'dlig' on;
     text-overflow: ellipsis;
     font-family: "Public Sans";
@@ -95,6 +96,34 @@
 }
 
 .title {
-  /* flex 필요 없음 */
   text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #5a2a00;
+  margin-bottom: 40px;
+}
+
+.logoutButton {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding: 0 16px;
+}
+
+.logoutButton button {
+  background-color: #e78f57;       /* 테마 강조색 */
+  color: #fff;
+  font-family: "Public Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.logoutButton button:hover {
+  background-color: #cf7746;       /* 약간 진한 톤으로 hover */
+  transform: translateY(-2px);
 }

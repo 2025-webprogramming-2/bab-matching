@@ -33,7 +33,7 @@ userRouter.post('/toggleFavorite', async (req, res) => {
   }
 });
 
-// ✅ 찜 목록 조회 API
+// 찜 목록 조회 API
 userRouter.get('/favorites', async (req, res) => {
   try {
     const userId = req.session.user?.userId;
@@ -120,15 +120,30 @@ userRouter.get('/me', (req, res) => {
   res.status(200).json(req.session.user);
 });
 
+userRouter.get('/me/full', async (req, res) => {
+  const uid = req.session.user?.userId || req.session.userId;
+  if (!uid) return res.status(401).json({ message: '로그인이 필요합니다.' });
+
+  try {
+    const user = await User.findById(uid);     // ← DB 전체 문서
+    if (!user) return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
+    res.status(200).json(user);                // historyRoom, currentRoom 등 모두 포함
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '서버 오류' });
+  }
+});
+
 // 세션 외 상세 조회
 userRouter.get('/me/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate('currentRoom');
+    const user = await User.findById(req.params.id).populate('currentRoom').populate('historyRoom');
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json({ message: '유저 정보 불러오기 실패' });
   }
 });
+
 
 // 사용자 개별 조회
 userRouter.get('/:id', async (req, res) => {
