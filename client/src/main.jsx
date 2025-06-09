@@ -20,9 +20,13 @@ function RootWrapper() {
         });
         setUser(res.data);
       } catch (err) {
-        if (err.response?.status !== 401) {
-          console.error('Session check error:', err);
+        const status = err?.response?.status;
+
+        if (status === 401) {
+        } else {
+          console.error('세션 확인 중 에러 발생:', err);
         }
+
         clearUser();
       } finally {
         setLoading(false);

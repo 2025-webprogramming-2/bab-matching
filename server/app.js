@@ -29,10 +29,12 @@ app.set('trust proxy', 1);
 // CORS 설정 (가장 먼저 등록)
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173', // 개발 환경
-      'https://bab-matching.vercel.app', // 배포 환경
-    ],
+    // origin: [
+    //   'http://localhost:5173', // 개발 환경
+    //   'https://bab-matching.vercel.app', // 배포 환경
+    // ],
+    origin: 'https://bab-matching.vercel.app',
+
     credentials: true, // 쿠키 주고받기 허용
   }),
 );
@@ -44,9 +46,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: isProduction, // 개발 환경에서는 false (HTTPS일 땐 true)
+      secure: true, // 개발 환경에서는 false (HTTPS일 땐 true)
       httpOnly: true,
-      sameSite: isProduction ? 'none' : 'lax', // 또는 'none' (secure: true와 함께)
+      sameSite: 'none', // 또는 'none' (secure: true와 함께)
       maxAge: 1000 * 60 * 60 * 2, // 2시간
     },
   }),
