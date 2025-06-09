@@ -1,0 +1,49 @@
+/* MyRoomHistory.module.css */
+
+.historyContainer {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fefaf3; /* 테마 배경 */
+  border-radius: 12px;
+}
+
+.historyTitle {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #e78f57; /* 테마 강조색 */
+}
+
+.loading,
+.emptyMessage {
+  text-align: center;
+  color: #999;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+.roomList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.roomCard {
+  background-color: #fefaf3;
+  border: 1px solid #e78f57; /* 테마 경계선 */
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.roomCard:hover {
+  box-shadow: 0 2px 8px rgba(231, 143, 87, 0.3); /* 테마 그림자 */
+  transform: translateY(-2px);
+}
+
+.roomCard div {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
