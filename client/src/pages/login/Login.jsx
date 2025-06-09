@@ -24,7 +24,11 @@ function Login() {
           withCredentials: true,
         });
         navigate('/main');
-      } catch (err) {}
+      } catch (err) {
+        if (err.response?.status !== 401) {
+          console.error('Session check error:', err);
+        }
+      }
     };
     checkSession();
   }, [navigate]);

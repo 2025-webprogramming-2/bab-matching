@@ -31,8 +31,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173', // 개발 환경
-      'https://bab-matching.vercel.app',
-      'https://bab-matching.onrender.com', // 배포 환경
+      'https://bab-matching.vercel.app', // 배포 환경
     ],
     credentials: true, // 쿠키 주고받기 허용
   }),
