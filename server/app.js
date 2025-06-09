@@ -67,7 +67,7 @@ app.use('/api/store', storeRouter);
 // app.use('/api/major', majorRouter);
 
 // SPA 라우팅: 위 API 외 모든 요청은 프론트 index.html 반환
-app.get('/*', (req, res) => {
+app.get('/{*any}', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
