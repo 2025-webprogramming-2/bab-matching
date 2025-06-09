@@ -60,14 +60,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
 // 라우터 연결
-app.use('/api/', rootRouter);
+// app.use('/api/', rootRouter);
 app.use('/api/user', userRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/store', storeRouter);
-app.use('/api/major', majorRouter);
+// app.use('/api/major', majorRouter);
 
 // SPA 라우팅: 위 API 외 모든 요청은 프론트 index.html 반환
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
 });
 
