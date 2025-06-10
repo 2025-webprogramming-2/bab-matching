@@ -64,8 +64,7 @@
 
 .formGroup {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 2rem;
 }
 
 .label {
@@ -78,14 +77,15 @@
   border: 1px solid #e78f57;
   background: #fff;
   /* padding: 0.5rem; */
-  width: 10rem;
-  height: 3rem;
+  width: 15rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: black;
   font-size: 14px;
+  text-align: center;
 }
 
 .preferences {

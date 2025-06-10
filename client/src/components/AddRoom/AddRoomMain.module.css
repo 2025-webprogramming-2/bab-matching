@@ -73,6 +73,7 @@
   justify-content: center;
   cursor: pointer;
   color: black;
+  text-align: center;
 }
 
 .selectBtn > option {

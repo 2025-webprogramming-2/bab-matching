@@ -69,7 +69,7 @@ function MyEdit() {
 
       {/* Input Fields */}
       <div className={styles.formGroup}>
-        <label className={styles.label}>이름</label>
+        {/* <label className={styles.label}>이름</label>/ */}
         <input
           type="text"
           name="username"
