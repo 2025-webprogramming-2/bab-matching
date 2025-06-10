@@ -98,11 +98,19 @@
   font-size: 2rem; /* ⭐ 크기 키움 */
   color: #ccc;
   position: absolute;
-  top: -10px;      /* 박스 위로 이동 */
-  right: -10px;    /* 박스 오른쪽으로 이동 */
+  top: -10px; /* 박스 위로 이동 */
+  right: -10px; /* 박스 오른쪽으로 이동 */
   transition: color 0.2s;
 }
 
 .star.filled {
   color: gold;
+}
+
+.findAccount {
+  margin-top: 20px;
+  color: #6d3f26;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import styles from './My.module.css';
+import { MajorList } from '../../constants/MajorList';
 
 function My() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function My() {
             <>
               <div className={styles.userName}>{user.username}</div>
               <div className={styles.userInfo}>
-                {user.studentNumber}학번, {user.major}
+                {user.studentNumber}학번, {MajorList[user.major]?.name || '-'}
               </div>
             </>
           ) : (

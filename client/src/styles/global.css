@@ -15,7 +15,7 @@ body {
 
 html {
   font-size: 62.5%;
-  background-color: #b4b4b4;
+  background-color: #fffcf4;
   /* background-color: var(--html-background); */
   display: flex;
   align-items: center;
@@ -53,7 +53,9 @@ a {
     }
   } */
 /* layout 관련 하단 고정용 스타일 */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;

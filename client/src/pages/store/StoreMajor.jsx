@@ -100,6 +100,7 @@ function StoreMajor() {
           </button>
         ))}
       </div>
+      <h3 className={styles.findAccount}>제휴 식당을 클릭해 매칭방을 만들 수 있습니다.</h3>
 
       {/* 가게 카드 리스트 */}
       {filteredStores.length === 0 ? (

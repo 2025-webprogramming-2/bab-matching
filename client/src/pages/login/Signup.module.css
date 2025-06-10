@@ -17,6 +17,7 @@
 /* ─── 기본 입력 필드 ─────────────── */
 .input {
   width: 300px; /* ← 폭 고정 */
+  height: 49px;
   padding: 15px;
   margin: 8px 0;
   border: none;

@@ -34,6 +34,14 @@ function MyRoomHistory() {
     })();
   }, []);
 
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${month}.${day}.`;
+  };
+
   if (loading) return <p className={styles.loading}>로딩 중...</p>;
 
   return (
@@ -45,14 +53,15 @@ function MyRoomHistory() {
         <ul className={styles.roomList}>
           {rooms.map((r) => (
             <li key={r._id} className={styles.roomCard}>
-              <div>
-                <strong>식당:</strong> {r.storeId?.name || '알 수 없음'}
-              </div>
-              <div>
-                <strong>시간:</strong> {r.time.start}시 ~ {r.time.end}시
-              </div>
-              <div>
-                <strong>인원:</strong> {r.currentUserId.length} / {r.maxCount}
+              <h1>{r.storeId?.name || '알 수 없음'}</h1>
+              <div className={styles.roomBottom}>
+                <h2>
+                  {formatDate(r.createdAt)} {r.time.start}시
+                </h2>
+                <div className={styles.peopleContainer}>
+                  <img className={styles.peopleIcon} src="/assets/people.png" alt="사람 이미지" />
+                  <p>{r.currentCount}</p>
+                </div>
               </div>
             </li>
           ))}
