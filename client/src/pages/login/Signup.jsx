@@ -40,6 +40,9 @@ function Signup() {
     }
   };
 
+  const handleToLogin = () => {
+    navigate('/');
+  };
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>회원가입</h2>
@@ -90,6 +93,10 @@ function Signup() {
       <button className={styles.signupBtn} onClick={handleSignup}>
         회원가입 하기
       </button>
+
+      <p className={styles.findAccount} onClick={handleToLogin}>
+        로그인 하러가기
+      </p>
     </div>
   );
 }

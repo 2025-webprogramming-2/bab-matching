@@ -14,6 +14,7 @@
 
 .closeButton {
   font-size: 20px;
+  color: #f97316;
   background: none;
   border: none;
   cursor: pointer;
@@ -73,9 +74,17 @@
 }
 
 .input {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 20px;
+  border: 1px solid #e78f57;
+  background: #fff;
+  /* padding: 0.5rem; */
+  width: 10rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: black;
   font-size: 14px;
 }
 

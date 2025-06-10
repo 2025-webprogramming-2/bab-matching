@@ -65,10 +65,14 @@
   border-radius: 20px;
   border: 1px solid #e78f57;
   background: #fff;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   width: 10rem;
-
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  color: black;
 }
 
 .selectBtn > option {

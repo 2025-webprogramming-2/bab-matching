@@ -53,7 +53,7 @@ function MyEdit() {
         </button>
         <h2 className={styles.title}>프로필 수정</h2>
         <button className={styles.saveButton} onClick={handleSave}>
-          Save
+          저장
         </button>
       </div>
 

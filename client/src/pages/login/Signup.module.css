@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;        /* ← 왼쪽 정렬 */
+  align-items: flex-start; /* ← 왼쪽 정렬 */
   padding: 40px 20px;
   background-color: #fefaf3;
   height: 100vh;
@@ -16,7 +16,7 @@
 
 /* ─── 기본 입력 필드 ─────────────── */
 .input {
-  width: 300px;                   /* ← 폭 고정 */
+  width: 300px; /* ← 폭 고정 */
   padding: 15px;
   margin: 8px 0;
   border: none;
@@ -59,7 +59,7 @@
 .genderGroup {
   display: flex;
   gap: 40px;
-  justify-content: flex-start;    /* ← 왼쪽 정렬 */
+  justify-content: flex-start; /* ← 왼쪽 정렬 */
 }
 
 .genderOption {
@@ -113,4 +113,13 @@
   text-align: center;
   margin-left: 0;
   display: block;
+  height: 49px;
+}
+
+.findAccount {
+  margin-top: 20px;
+  color: #6d3f26;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
 }

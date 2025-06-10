@@ -93,7 +93,7 @@ function Login() {
         회원가입 하기
       </button>
 
-      <p className={styles.findAccount}>아이디/비밀번호 찾기</p>
+      {/* <p className={styles.findAccount}>아이디/비밀번호 찾기</p> */}
     </div>
   );
 }
