@@ -47,8 +47,9 @@ roomRouter.get('/roomList', async (req, res) => {
     }
 
     const now = new Date();
-    const todayStr = now.toISOString().slice(0, 10);
-    const currentHour = now.getHours();
+    const KST = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+    const todayStr = KST.toISOString().slice(0, 10);
+    const currentHour = KST.getHours();
 
     const allUsers = await User.find({ currentRoom: { $exists: true, $not: { $size: 0 } } });
 
@@ -60,7 +61,7 @@ roomRouter.get('/roomList', async (req, res) => {
         if (!room) continue;
 
         // 방 생성일과 오늘 비교
-        const createdDate = new Date(room.createdAt).toISOString().slice(0, 10);
+        const createdDate = new Date(room.createdAt.getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
         if (createdDate !== todayStr) continue;
 
         if (room.time.end + 1 <= currentHour) {

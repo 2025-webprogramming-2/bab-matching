@@ -103,7 +103,7 @@ function RoomList() {
   return (
     <>
       <div className={styles.btnContainer}>
-        <h2>실시간 매칭 방</h2>
+        <h1 className={styles.title}>실시간 매칭 방</h1>
         <div>
           <p
             className={filterType === 'all' ? styles.btnActive : styles.btnDeactive}

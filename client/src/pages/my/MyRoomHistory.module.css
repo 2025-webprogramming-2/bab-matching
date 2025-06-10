@@ -65,16 +65,16 @@
 }
 
 .roomCard > h1 {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
-  width: 90%;
+  width: 80%;
 }
 
 .roomBottom {
   display: flex;
-  width: 90%;
+  width: 80%;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .roomBottom > h2 {

@@ -152,3 +152,9 @@
   align-items: center;
   gap: 1rem;
 }
+
+.title {
+  text-align: left;
+  width: 80%;
+  color: #5a2a00;
+}

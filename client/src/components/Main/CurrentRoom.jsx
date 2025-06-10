@@ -59,7 +59,7 @@ function CurrentRoom() {
 
   return (
     <>
-      <h2 className={styles.title}>현재 매칭된 방</h2>
+      <h1 className={styles.title}>현재 매칭된 방</h1>
       <div className={styles.wrap}>
         {rooms.length === 0 ? (
           <div className={styles.wrapper}>

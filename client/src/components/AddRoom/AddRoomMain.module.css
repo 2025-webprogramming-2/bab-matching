@@ -19,7 +19,7 @@
   justify-content: space-between;
 }
 .selectTitle {
-  color: #000;
+  color: #5a2a00;
   font-family: Inter;
   font-size: 15px;
   font-style: normal;
@@ -87,7 +87,7 @@
 }
 
 .optionContainer > h1 {
-  color: #000;
+  color: #5a2a00;
   font-family: Inter;
   font-size: 15px;
   font-style: normal;
